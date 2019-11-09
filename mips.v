@@ -73,11 +73,6 @@ module ctrl(input clk,
     jal <= 0;
 
 
-
-  //srcB = aluSrc ? addr_w_offset : RD2;
-  //result = memToReg ? RD : ALUResult;
-  //A3 <= regDst ? cmd[15:11] : A2;
-
   case (Op)
     
     6'b000000 : begin
