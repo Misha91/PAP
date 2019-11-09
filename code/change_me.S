@@ -43,8 +43,8 @@
 
 start:
 _start:
-	addi     $1, $0, 54
-	addi     $2, $0, 24
+	addi     $1, $0, 36
+	addi     $2, $0, 60
 
 loop:
 	beq    $1, $0, result_b

@@ -95,27 +95,21 @@ module ctrl(input clk,
 	  end 
 
         6'b100000: begin
-	  $display("cmd = %h, Op=%b, f=%b - ADD", cmd, Op, funct);
+	  $display("cmd = %h, Op=%b, f=%b A1=%h, A2=%h - ADD", cmd, Op, funct, A1, A2);
 	  ALUControl <= 3'b010;
    	  aluSrc <= 0;
     	  regDst <= 1;
     	  memToReg <= 0;
-    	  WE3 <= 1;
-    	  branch <= 0;
-    	  bne <= 0;
-          jal <= 0;
+    	  WE3 <= 1; 
 	  end 
 
         6'b100010: begin
-	  $display("cmd = %h, Op=%b, f=%b - SUB", cmd, Op, funct);
+	  $display("cmd = %h, Op=%b, f=%b A1=%h, A2=%h - SUB", cmd, Op, funct, A1, A2);
 	  ALUControl <= 3'b110;
    	  aluSrc <= 0;
     	  regDst <= 1;
     	  memToReg <= 0;
-    	  WE3 <= 1;
-    	  branch <= 0;
-    	  bne <= 0;
-          jal <= 0;
+    	  WE3 <= 1;    
 	  end 
 
         6'b100100: begin
@@ -133,9 +127,6 @@ module ctrl(input clk,
     	  regDst <= 1;
     	  memToReg <= 0;
     	  WE3 <= 1;
-    	  branch <= 0;
-    	  bne <= 0;
-          jal <= 0;
 	  end 
 
  
@@ -145,13 +136,6 @@ module ctrl(input clk,
 
     6'b000011 : begin
       $display("cmd = %h, Op=%b, f=%b - JAL", cmd, Op, funct);
-      ALUControl <= 3'bzzz;
-      aluSrc <= 1'bz;
-      regDst <= 1'bz;
-      memToReg <= 1'bz;
-      WE3 <= 1'bz;
-      branch <= 0;
-      bne <= 0;
       jal <= 1;
     end
     
@@ -160,11 +144,6 @@ module ctrl(input clk,
       ALUControl <= 3'b110;
       aluSrc <= 0;
       branch <= 1;
-      regDst <= 1'bz;
-      memToReg <= 1'bz;
-      WE3 <= 1'bz;
-      bne <= 0;
-      jal <= 0;
     end
 
     6'b000101 : begin
@@ -172,11 +151,7 @@ module ctrl(input clk,
       ALUControl <= 3'b110;
       aluSrc <= 0;
       branch <= 1;
-      regDst <= 1'bz;
-      memToReg <= 1'bz;
-      WE3 <= 1'bz;
       bne <= 1;
-      jal <= 0;
     end
     
     6'b001000 : begin
@@ -186,9 +161,6 @@ module ctrl(input clk,
       regDst <= 0;
       memToReg <= 0;
       WE3 <= 1;
-      branch = 0;
-      bne = 0;
-      jal <= 0;
     end
     /*
     6'b100011 : begin
@@ -200,15 +172,7 @@ module ctrl(input clk,
     end
     */
     default : begin
-      $display("cmd = %h, UNSUPPORTED OPCODE", cmd);  
-      ALUControl <= 3'bzzz;
-      aluSrc <= 1'bz;
-      regDst <= 1'bz;
-      memToReg <= 1'bz;
-      WE3 <= 1'bz;
-      branch <= 0;
-      bne <= 0;
-      jal <= 0;
+      $display("cmd = %h, DONE! CHECK RESULT IN R3!", cmd);  
     end 
   endcase
   end
