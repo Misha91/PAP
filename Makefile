@@ -2,7 +2,7 @@
 default : all
 
 all :
-	iverilog -t vvp -o test.vvp utils.v mips.v
+	iverilog -t vvp -o test.vvp alu.v utils.v mips.v
 	vvp test.vvp
 	
 

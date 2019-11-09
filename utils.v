@@ -9,13 +9,21 @@ module reg_file(input [4:0] A1, A2, A3,
     registers[0] = 0;
     end
 
+    always @(*)
+    begin
+        RD1 <= registers[A1];
+	RD2 <= registers[A2];
+    end     
+
     always @(posedge clk)
     begin
-        RD1 <= WE3? 32'bz : registers[A1];
-	RD2 <= WE3? 32'bz : registers[A2];
         registers[A3] <= WE3 ? WD3 : registers[A3];
+        registers[0] = 0;
     end     
-  
+
+  always #1000 $display( "R0 = %d, R1=%d, R2=%d, R3=%d, R4=%d, R5=%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5] );
+//always @(*) $display( "R0 = %d, R1=%d, R2=%d, R3=%d, R4=%d, R5=%d",registers[0],registers[1],registers[2],registers[3],registers[4],registers[5] );
+
 endmodule 
 
 module sign_ext(input [15:0] A,
@@ -24,3 +32,53 @@ module sign_ext(input [15:0] A,
         //assign Y = { A[15:0], A[15:0]};
 endmodule 
 
+
+module dmem (input clk, we,
+             input [31:0] a, wd,
+             output [31:0] rd);
+
+  reg [31:0] RAM[127:0];
+
+  assign rd = RAM[a[7:2]]; // word aligned
+
+  always@(posedge clk)
+    if(we) RAM[a[31:2]] <= wd;
+
+endmodule
+
+module imem (input [5:0] a,
+             output [31:0] rd);
+ 
+  // The "a" is the address of instruction to fetch, what
+  // for our purpose can be taken from ProgramCounter[7:2]
+ 
+  reg [31:0] RAM[127:0];
+ 
+  initial  $readmemh ("memfile.dat",RAM);
+  
+  assign rd = RAM[a]; // word aligned
+ 
+endmodule
+
+module mux2 (input [31:0] d0, d1,
+ input s,
+ output [31:0] y);
+
+ assign y = ~s? d0 : 32'bz;
+ assign y = s? d1 : 32'bz;
+endmodule
+
+module mux2_5 (input [4:0] d0, d1,
+ input s,
+ output [4:0] y);
+
+ assign y = ~s? d0 : 5'bz;
+ assign y = s? d1 : 5'bz;
+endmodule
+
+module m_and (input x, y, bne,
+ output z);
+
+ assign z = x & (bne ? ~y : y);
+
+endmodule
