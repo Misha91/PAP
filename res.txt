@@ -1752,3 +1752,477 @@ cmd = 00812825, Op=000000, f=100101 - OR
 cmd = 00000000, Op=000000, f=000000 - SLL
 cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
          0,         5,        10,        15,         0,         5
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 0c000004, Op=000011, f=000100 - JAL
+cmd = 20040005, Op=001000, f= 5, A1=00, A2=04 - ADDI
+cmd = 03e00008, Op=000000, f=001000 - JR
+cmd = 20850001, Op=001000, f= 1, A1=04, A2=05 - ADDI
+cmd = 0c000006, Op=000011, f=000110 - JAL
+cmd = 2002000a, Op=001000, f=10, A1=00, A2=02 - ADDI
+cmd = 20030000, Op=001000, f= 0, A1=00, A2=03 - ADDI
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         1,        10,         0,         5,         6
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 00011080, Op=000000, f=000000 - SLL
+cmd = 00011900, Op=000000, f=000000 - SLL
+cmd = 00032002, Op=000000, f=000010 - SRL
+cmd = 00032982, Op=000000, f=000010 - SRL
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         1,         4,        16,        16,         0
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20000005, Op=001000, f= 5, A1=00, A2=00 - ADDI
+Error in ALU CASE
+cmd = 2001000a, Op=001000, f=10, A1=00, A2=01 - ADDI
+cmd = 20220005, Op=001000, f= 5, A1=01, A2=02 - ADDI
+cmd = 20030019, Op=001000, f=25, A1=00, A2=03 - ADDI
+cmd = 00222020, Op=000000, f=100000 A1=01, A2=02 - ADD
+cmd = 00642822, Op=000000, f=100010 A1=03, A2=04 - SUB
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,        10,        15,        25,        25,         0
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010005, Op=001000, f= 5, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 2002000a, Op=001000, f=10, A1=00, A2=02 - ADDI
+cmd = 00221825, Op=000000, f=100101 - OR
+cmd = 00222024, Op=000000, f=100100 - AND
+cmd = 00220024, Op=000000, f=100100 - AND
+cmd = 00812825, Op=000000, f=100101 - OR
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         5,        10,        15,         0,         5
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20011068, Op=001000, f=40, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 20020dc8, Op=001000, f= 8, A1=00, A2=02 - ADDI
+cmd = 1020000d, Op=000100, f=001101 A1=01, A2=00 - BEQ
+cmd = 1040000a, Op=000100, f=001010 A1=02, A2=00 - BEQ
+cmd = 0022202a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 14800004, Op=000101, f=000100 A1=04, A2=00 - BNE
+cmd = 00220822, Op=000000, f=100010 A1=01, A2=02 - SUB
+cmd = 0022282a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 0c000002, Op=000011, f=000010 - JAL
+cmd = 1020000d, Op=000100, f=001101 A1=01, A2=00 - BEQ
+cmd = 1040000a, Op=000100, f=001010 A1=02, A2=00 - BEQ
+cmd = 0022202a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 14800004, Op=000101, f=000100 A1=04, A2=00 - BNE
+cmd = 00411022, Op=000000, f=100010 A1=02, A2=01 - SUB
+cmd = 0041282a, Op=000000, f=101010 A1=02, A2=01 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00411022, Op=000000, f=100010 A1=02, A2=01 - SUB
+cmd = 0041282a, Op=000000, f=101010 A1=02, A2=01 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00411022, Op=000000, f=100010 A1=02, A2=01 - SUB
+cmd = 0041282a, Op=000000, f=101010 A1=02, A2=01 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00411022, Op=000000, f=100010 A1=02, A2=01 - SUB
+cmd = 0041282a, Op=000000, f=101010 A1=02, A2=01 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00411022, Op=000000, f=100010 A1=02, A2=01 - SUB
+cmd = 0041282a, Op=000000, f=101010 A1=02, A2=01 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 0c000002, Op=000011, f=000010 - JAL
+cmd = 1020000d, Op=000100, f=001101 A1=01, A2=00 - BEQ
+cmd = 1040000a, Op=000100, f=001010 A1=02, A2=00 - BEQ
+cmd = 0022202a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 14800004, Op=000101, f=000100 A1=04, A2=00 - BNE
+cmd = 00220822, Op=000000, f=100010 A1=01, A2=02 - SUB
+cmd = 0022282a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00220822, Op=000000, f=100010 A1=01, A2=02 - SUB
+cmd = 0022282a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00220822, Op=000000, f=100010 A1=01, A2=02 - SUB
+cmd = 0022282a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00220822, Op=000000, f=100010 A1=01, A2=02 - SUB
+cmd = 0022282a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 0c000002, Op=000011, f=000010 - JAL
+cmd = 1020000d, Op=000100, f=001101 A1=01, A2=00 - BEQ
+cmd = 00401820, Op=000000, f=100000 A1=02, A2=00 - ADD
+cmd = 0c000012, Op=000011, f=010010 - JAL
+cmd = 00000000, Op=000000, f=000000 - SLL
+         x,         0,       168,       168,         0,         1
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 0c000004, Op=000011, f=000100 - JAL
+cmd = 20040005, Op=001000, f= 5, A1=00, A2=04 - ADDI
+cmd = 03e00008, Op=000000, f=001000 - JR
+cmd = 20850001, Op=001000, f= 1, A1=04, A2=05 - ADDI
+cmd = 0c000006, Op=000011, f=000110 - JAL
+cmd = 2002000a, Op=001000, f=10, A1=00, A2=02 - ADDI
+cmd = 20030000, Op=001000, f= 0, A1=00, A2=03 - ADDI
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         1,        10,         0,         5,         6
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 00011080, Op=000000, f=000000 - SLL
+cmd = 00011900, Op=000000, f=000000 - SLL
+cmd = 00032002, Op=000000, f=000010 - SRL
+cmd = 00032982, Op=000000, f=000010 - SRL
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         1,         4,        16,        16,         0
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20000005, Op=001000, f= 5, A1=00, A2=00 - ADDI
+Error in ALU CASE
+cmd = 2001000a, Op=001000, f=10, A1=00, A2=01 - ADDI
+cmd = 20220005, Op=001000, f= 5, A1=01, A2=02 - ADDI
+cmd = 20030019, Op=001000, f=25, A1=00, A2=03 - ADDI
+cmd = 00222020, Op=000000, f=100000 A1=01, A2=02 - ADD
+cmd = 00642822, Op=000000, f=100010 A1=03, A2=04 - SUB
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,        10,        15,        25,        25,         0
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = ac010000, DONE! CHECK RESULT IN R3!
+cmd = 8c020000, DONE! CHECK RESULT IN R3!
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         1,         x,         x,         x,         x
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 0c000004, Op=000011, f=000100 - JAL
+cmd = 20040005, Op=001000, f= 5, A1=00, A2=04 - ADDI
+cmd = 03e00008, Op=000000, f=001000 - JR
+cmd = 20850001, Op=001000, f= 1, A1=04, A2=05 - ADDI
+cmd = 0c000006, Op=000011, f=000110 - JAL
+cmd = 2002000a, Op=001000, f=10, A1=00, A2=02 - ADDI
+cmd = 20030000, Op=001000, f= 0, A1=00, A2=03 - ADDI
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         1,        10,         0,         5,         6
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 00011080, Op=000000, f=000000 - SLL
+cmd = 00011900, Op=000000, f=000000 - SLL
+cmd = 00032002, Op=000000, f=000010 - SRL
+cmd = 00032982, Op=000000, f=000010 - SRL
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         1,         4,        16,        16,         0
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20000005, Op=001000, f= 5, A1=00, A2=00 - ADDI
+Error in ALU CASE
+cmd = 2001000a, Op=001000, f=10, A1=00, A2=01 - ADDI
+cmd = 20220005, Op=001000, f= 5, A1=01, A2=02 - ADDI
+cmd = 20030019, Op=001000, f=25, A1=00, A2=03 - ADDI
+cmd = 00222020, Op=000000, f=100000 A1=01, A2=02 - ADD
+cmd = 00642822, Op=000000, f=100010 A1=03, A2=04 - SUB
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,        10,        15,        25,        25,         0
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = ac010000, DONE! CHECK RESULT IN R3!
+cmd = 8c020000, DONE! CHECK RESULT IN R3!
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         1,         x,         x,         x,         x
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010005, Op=001000, f= 5, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 2002000a, Op=001000, f=10, A1=00, A2=02 - ADDI
+cmd = 00221825, Op=000000, f=100101 - OR
+cmd = 00222024, Op=000000, f=100100 - AND
+cmd = 00220024, Op=000000, f=100100 - AND
+cmd = 00812825, Op=000000, f=100101 - OR
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         5,        10,        15,         0,         5
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:52: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:52: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = ac010000, DONE! CHECK RESULT IN R3!
+cmd = 8c020000, DONE! CHECK RESULT IN R3!
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         1,         x,         x,         x,         x
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:53: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:53: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = ac010000, Op=101011, f=000000 - SW
+cmd = 8c020000, Op=100011, f=000000 - LW
+cmd = 20410005, Op=001000, f= 5, A1=02, A2=01 - ADDI
+cmd = ac010005, Op=101011, f=000101 - SW
+cmd = 8c030005, Op=100011, f=000101 - LW
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         6,         1,         6,         x,         x
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:53: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:53: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = ac010000, Op=101011, f=000000 - SW
+cmd = 8c020000, Op=100011, f=000000 - LW
+cmd = 20410005, Op=001000, f= 5, A1=02, A2=01 - ADDI
+cmd = ac010005, Op=101011, f=000101 - SW
+cmd = 8c030005, Op=100011, f=000101 - LW
+cmd = 00622020, Op=000000, f=100000 A1=03, A2=02 - ADD
+cmd = ac04000a, Op=101011, f=001010 - SW
+cmd = 8c05000a, Op=100011, f=001010 - LW
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         6,         1,         6,         7,         7
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:53: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:53: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = ac010000, Op=101011, f=000000 - SW
+cmd = 8c020000, Op=100011, f=000000 - LW
+cmd = 20410005, Op=001000, f= 5, A1=02, A2=01 - ADDI
+cmd = ac010005, Op=101011, f=000101 - SW
+cmd = 8c030005, Op=100011, f=000101 - LW
+cmd = 00622020, Op=000000, f=100000 A1=03, A2=02 - ADD
+cmd = ac04000a, Op=101011, f=001010 - SW
+cmd = 8c05000a, Op=100011, f=001010 - LW
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         6,         1,         6,         7,         7
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:53: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:53: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 0c000004, Op=000011, f=000100 - JAL
+cmd = 20040005, Op=001000, f= 5, A1=00, A2=04 - ADDI
+cmd = 03e00008, Op=000000, f=001000 - JR
+cmd = 20850001, Op=001000, f= 1, A1=04, A2=05 - ADDI
+cmd = 0c000006, Op=000011, f=000110 - JAL
+cmd = 2002000a, Op=001000, f=10, A1=00, A2=02 - ADDI
+cmd = 20030000, Op=001000, f= 0, A1=00, A2=03 - ADDI
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         1,        10,         0,         5,         6
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:53: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:53: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 00011080, Op=000000, f=000000 - SLL
+cmd = 00011900, Op=000000, f=000000 - SLL
+cmd = 00032002, Op=000000, f=000010 - SRL
+cmd = 00032982, Op=000000, f=000010 - SRL
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         1,         4,        16,        16,         0
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:53: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:53: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20000005, Op=001000, f= 5, A1=00, A2=00 - ADDI
+Error in ALU CASE
+cmd = 2001000a, Op=001000, f=10, A1=00, A2=01 - ADDI
+cmd = 20220005, Op=001000, f= 5, A1=01, A2=02 - ADDI
+cmd = 20030019, Op=001000, f=25, A1=00, A2=03 - ADDI
+cmd = 00222020, Op=000000, f=100000 A1=01, A2=02 - ADD
+cmd = 00642822, Op=000000, f=100010 A1=03, A2=04 - SUB
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,        10,        15,        25,        25,         0
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:53: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:53: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010001, Op=001000, f= 1, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = ac010000, Op=101011, f=000000 - SW
+cmd = 8c020000, Op=100011, f=000000 - LW
+cmd = 20410005, Op=001000, f= 5, A1=02, A2=01 - ADDI
+cmd = ac010005, Op=101011, f=000101 - SW
+cmd = 8c030005, Op=100011, f=000101 - LW
+cmd = 00622020, Op=000000, f=100000 A1=03, A2=02 - ADD
+cmd = ac04000a, Op=101011, f=001010 - SW
+cmd = 8c05000a, Op=100011, f=001010 - LW
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         6,         1,         6,         7,         7
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:53: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:53: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20010005, Op=001000, f= 5, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 2002000a, Op=001000, f=10, A1=00, A2=02 - ADDI
+cmd = 00221825, Op=000000, f=100101 - OR
+cmd = 00222024, Op=000000, f=100100 - AND
+cmd = 00220024, Op=000000, f=100100 - AND
+cmd = 00812825, Op=000000, f=100101 - OR
+cmd = 00000000, Op=000000, f=000000 - SLL
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+         0,         5,        10,        15,         0,         5
+iverilog -t vvp -o test.vvp alu.v utils.v mips.v
+vvp test.vvp
+WARNING: utils.v:53: $readmemh: Standard inconsistency, following 1364-2005.
+WARNING: utils.v:53: $readmemh(memfile.dat): Not enough words in the file for the requested range [0:127].
+Error in ALU CASE
+cmd = xxxxxxxx, DONE! CHECK RESULT IN R3!
+cmd = 20011068, Op=001000, f=40, A1=00, A2=01 - ADDI
+Error in ALU CASE
+cmd = 20020dc8, Op=001000, f= 8, A1=00, A2=02 - ADDI
+cmd = 1020000d, Op=000100, f=001101 A1=01, A2=00 - BEQ
+cmd = 1040000a, Op=000100, f=001010 A1=02, A2=00 - BEQ
+cmd = 0022202a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 14800004, Op=000101, f=000100 A1=04, A2=00 - BNE
+cmd = 00220822, Op=000000, f=100010 A1=01, A2=02 - SUB
+cmd = 0022282a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 0c000002, Op=000011, f=000010 - JAL
+cmd = 1020000d, Op=000100, f=001101 A1=01, A2=00 - BEQ
+cmd = 1040000a, Op=000100, f=001010 A1=02, A2=00 - BEQ
+cmd = 0022202a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 14800004, Op=000101, f=000100 A1=04, A2=00 - BNE
+cmd = 00411022, Op=000000, f=100010 A1=02, A2=01 - SUB
+cmd = 0041282a, Op=000000, f=101010 A1=02, A2=01 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00411022, Op=000000, f=100010 A1=02, A2=01 - SUB
+cmd = 0041282a, Op=000000, f=101010 A1=02, A2=01 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00411022, Op=000000, f=100010 A1=02, A2=01 - SUB
+cmd = 0041282a, Op=000000, f=101010 A1=02, A2=01 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00411022, Op=000000, f=100010 A1=02, A2=01 - SUB
+cmd = 0041282a, Op=000000, f=101010 A1=02, A2=01 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00411022, Op=000000, f=100010 A1=02, A2=01 - SUB
+cmd = 0041282a, Op=000000, f=101010 A1=02, A2=01 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 0c000002, Op=000011, f=000010 - JAL
+cmd = 1020000d, Op=000100, f=001101 A1=01, A2=00 - BEQ
+cmd = 1040000a, Op=000100, f=001010 A1=02, A2=00 - BEQ
+cmd = 0022202a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 14800004, Op=000101, f=000100 A1=04, A2=00 - BNE
+cmd = 00220822, Op=000000, f=100010 A1=01, A2=02 - SUB
+cmd = 0022282a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00220822, Op=000000, f=100010 A1=01, A2=02 - SUB
+cmd = 0022282a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00220822, Op=000000, f=100010 A1=01, A2=02 - SUB
+cmd = 0022282a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 00220822, Op=000000, f=100010 A1=01, A2=02 - SUB
+cmd = 0022282a, Op=000000, f=101010 A1=01, A2=02 - SLT
+cmd = 10a0fffd, Op=000100, f=111101 A1=05, A2=00 - BEQ
+cmd = 0c000002, Op=000011, f=000010 - JAL
+cmd = 1020000d, Op=000100, f=001101 A1=01, A2=00 - BEQ
+cmd = 00401820, Op=000000, f=100000 A1=02, A2=00 - ADD
+cmd = 0c000012, Op=000011, f=010010 - JAL
+cmd = 00000000, Op=000000, f=000000 - SLL
+         x,         0,       168,       168,         0,         1

@@ -39,6 +39,7 @@ module dmem (input clk, we,
   always@(posedge clk)
     if(we) RAM[a[31:2]] <= wd;
 
+  //always @(RAM[a[31:2]]) $display("A=%d, res=%h", a[31:2], RAM[a[31:2]]);
 endmodule
 
 module imem (input [5:0] a,

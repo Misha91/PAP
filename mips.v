@@ -32,6 +32,7 @@ module mips(input clk,
   //always @(PC) $display("PC=%d", PC);
 
 endmodule
+
     
 module ctrl(input clk,
 	    input [31:0] cmd, PC, 
@@ -48,7 +49,7 @@ module ctrl(input clk,
   reg [2:0] ALUControl;
 
   sign_ext my_sign(cmd[15:0], addr_w_offset);
-
+  dmem my_dmem(clk, memWrite, ALUResult, RD2, RD);
   reg_file my_reg(A1, A2, A3, result, clk, WE3, srcA, RD2);
   ALU my_alu(srcA, srcB, ALUControl, shamt, ALUResult, Zero);
   pc_update my_pc_update(PC, addr_w_offset, srcA, PCSrc, jal, jr, newPC);
@@ -77,6 +78,7 @@ module ctrl(input clk,
     bne <= 0;
     jal <= 0;
     jr <= 0;
+    memWrite <= 0;
 
 
   case (Op)
@@ -185,15 +187,23 @@ module ctrl(input clk,
       memToReg <= 0;
       WE3 <= 1;
     end
-    /*
+
     6'b100011 : begin
       $display("cmd = %h, Op=%b, f=%b - LW", cmd, Op, funct);
+      aluSrc <= 1;
+      ALUControl <= 3'b010;
+      memToReg <= 1;
+      regDst <= 0;
+      WE3 <= 1;
     end
 
     6'b101011 : begin
       $display("cmd = %h, Op=%b, f=%b - SW", cmd, Op, funct);
+      aluSrc <= 1;
+      ALUControl <= 3'b010;
+      memWrite <= 1;
     end
-    */
+
     default : begin
       $display("cmd = %h, DONE! CHECK RESULT IN R3!", cmd);  
     end 
