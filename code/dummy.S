@@ -43,11 +43,5 @@
 
 start:
 _start:
-	addi     $1, $0, 5
-	addi     $2, $0, 10
-	or	 $3, $1, $2
-	and	 $4, $1, $2
-	and	 $0, $1, $2
-        or       $5, $4, $1
 nop
 .end start

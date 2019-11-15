@@ -5,24 +5,19 @@ module reg_file(input [4:0] A1, A2, A3,
 
     reg [31:0] registers [31:0];
 
-    initial begin
-    registers[0] = 0;
-    end
-
     always @(*)
     begin
-        RD1 <= registers[A1];
-	RD2 <= registers[A2];
+        RD1 <= A1 ? registers[A1] : 0;
+	RD2 <= A2 ? registers[A2] : 0;
     end     
 
     always @(posedge clk)
     begin
-        registers[A3] <= WE3 ? WD3 : registers[A3];
-        registers[0] = 0;
+        registers[A3] <= A3 ? (WE3 ? WD3 : registers[A3]) : 0;
     end     
 
-  always #1000 $display( "R0 = %d, R1=%d, R2=%d, R3=%d, R4=%d, R5=%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5] );
-//always @(*) $display( "R0 = %d, R1=%d, R2=%d, R3=%d, R4=%d, R5=%d",registers[0],registers[1],registers[2],registers[3],registers[4],registers[5] );
+  always #1000 $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
+//always @(registers[31]) $display( "%d",registers[31] );
 
 endmodule 
 
@@ -75,6 +70,15 @@ module mux2_5 (input [4:0] d0, d1,
  assign y = ~s? d0 : 5'bz;
  assign y = s? d1 : 5'bz;
 endmodule
+
+module mux2_5_A3 (input [4:0] d0,
+ input s,
+ output [4:0] y);
+
+ assign y = ~s? d0 : 5'bz;
+ assign y = s? 31 : 5'bz;
+endmodule
+
 
 module m_and (input x, y, bne,
  output z);
