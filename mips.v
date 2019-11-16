@@ -1,3 +1,4 @@
+//Test bench module
 module mips_tb;
   reg [31:0] PC;
   reg clk;
@@ -14,6 +15,13 @@ module mips_tb;
 endmodule
 
 
+/*
+
+Main MIPS module - has processor submodule, 
+requires clk and initial PC to start. Updates
+PC on every clk.
+
+*/
 module mips(input clk,
 	    input [31:0] PC_init);
 
@@ -23,7 +31,7 @@ module mips(input clk,
   always @(PC_init) PC = PC_init;
 
   imem imem_mod(PC[7:2], cmd);
-  ctrl my_ctrl(clk, cmd, PC, newPC, result);
+  processor my_ctrl(clk, cmd, PC, newPC, result);
   
   always @(posedge clk)
   begin
@@ -33,10 +41,17 @@ module mips(input clk,
 
 endmodule
 
+/*
+
+Main module. Performs all required computation, 
+updates register file and data memory. It has 
+$display statement for debug easiness.
+ 
+*/
     
-module ctrl(input clk,
-	    input [31:0] cmd, PC, 
-            output [31:0] newPC, result);
+module processor(input clk,
+	    	input [31:0] cmd, PC, 
+            	output [31:0] newPC, result);
 
   reg WE3, regDst, aluSrc, memToReg, memWrite, branch, bne, jal, jr;
   reg [4:0] A1, A2, shamt;
@@ -214,12 +229,5 @@ module ctrl(input clk,
 
 endmodule
 
-module pc_update (input [31:0] PC, addr_w_offset, srcA,
- input PCSrc, jal, jr,
- output [31:0] newPC);
 
- assign newPC = jr ? srcA : (jal ? addr_w_offset*4 : (PCSrc ? PC + 4 + (addr_w_offset*4): PC + 4));
- //always @(jr or srcA) $display("jr=%d, srcA=%d, PC=%h, newPC=%h", jr, srcA, PC,newPC);
-
-endmodule
 

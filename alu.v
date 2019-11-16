@@ -1,3 +1,7 @@
+// ALU module. Codes of 100 and 101 
+// were used for logical shift left
+// and right respectivly.
+
 module ALU(input [31:0] SrcA, SrcB, 
 	   input [2:0] ALUControl,
 	   input [4:0] shamt, 
