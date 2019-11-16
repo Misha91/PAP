@@ -32,7 +32,7 @@ always @(ALUResult) begin
 
   //$display("Y=%d, Z=%h, Ctrl=%h, A=%d, B=%d, shamt=%d", ALUResult, Zero, ALUControl, SrcA, SrcB, shamt);
 end
-  //assign Zero = ALUResult == 0? 1 : 0;
+
 endmodule 
 
 

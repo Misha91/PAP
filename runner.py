@@ -73,11 +73,6 @@ def callTest():
                print("Passed = " + str(passNum) + "/" + str(totalNum) + " (" + str(round(float(float(passNum)/float(totalNum)), 2)*100 ) + "%)" )
 
 
-    print("************************************************")
-    print("FINISHED\n\n")
-    print("Wanna do something else?")
-
-
 def callGcd():
     print("************************************************")
     print("Preparing ...")
@@ -112,17 +107,20 @@ def callGcd():
     resLine = (resLine.split(",")[2]).lstrip()
     print("The result of GCD for " + var1 + " and " + var2 + " is " + str(resLine))
 
-    print("************************************************")
-    print("FINISHED\n\n")
-    print("Wanna do something else?")
 
 print("Welcome to MIPS in Verilog processor verification programm!")
 
 while (inp != 2):
     askInput()
+
     if inp == 0:
         callTest()
     if inp == 1:
         callGcd()
+
+    print("************************************************")
+    print("FINISHED\n\n")
+    print("Wanna do something else?")
+
 
 print("EXIT")
