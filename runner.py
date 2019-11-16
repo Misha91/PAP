@@ -117,10 +117,10 @@ while (inp != 2):
         callTest()
     if inp == 1:
         callGcd()
-
-    print("************************************************")
-    print("FINISHED\n\n")
-    print("Wanna do something else?")
+    if (inp != 2):
+        print("************************************************")
+        print("FINISHED\n\n")
+        print("Wanna do something else?")
 
 
 print("EXIT")
