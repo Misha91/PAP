@@ -43,39 +43,11 @@
 
 start:
 _start:
-	#include "inputvars.def"
-	addi     $1, $0, srcA
-	addi     $2, $0, srcB
-
-loop:
-	beq    $1, $0, result_b
-	beq     $2, $0, result_a
-	slt $4, $1, $2 //  a < b ? 1 : 0
-	bne $4, $0, divB
-
-divA:
-	sub $1, $1, $2
-	slt $5, $1, $2
-	beq $5, $0, divA
-	jal loop
-
-divB: 
-	sub $2, $2, $1
-	slt $5, $2, $1
-	beq $5, $0, divB
-	jal loop
-                  
-
-result_a:
-	add $3, $1, $0
-	jal print_res
-
-result_b:
-	add $3, $2, $0
-	jal print_res
-
-print_res:
-	nop
-	//jal print_res
+	addi     $0, $0, 5
+	addi     $1, $0, 10
+	addi	 $2, $1, 5
+	addi	 $3, $0, 25
+	add	 $4, $1, $2
+	sub      $5, $3, $4
 nop
 .end start
