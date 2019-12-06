@@ -23,15 +23,13 @@ module reg_file(input printWire,
 
   always @(posedge printWire) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
   
-//always @(registers[31]) $display( "%d",registers[31] );
-
 endmodule 
+
 
 //Helper module for sign extension
 module sign_ext(input [15:0] A,
 		output [31:0] Y);
 	assign Y = { {16{A[15]}}, A[15:0]};
-        //assign Y = { A[15:0], A[15:0]};
 endmodule 
 
 
@@ -48,7 +46,6 @@ module dmem (input clk, we,
   always@(posedge clk)
     if(we) RAM[a[31:2]] <= wd;
 
-  //always @(RAM[a[31:2]]) $display("A=%d, res=%h", a[31:2], RAM[a[31:2]]);
 endmodule
 
 
@@ -100,8 +97,6 @@ module pc_update (input [31:0] PC, addr_w_offset, srcA,
  output [31:0] newPC);
 
  assign newPC = jr ? srcA : (jal ? addr_w_offset*4 : (PCSrc ? PC + 4 + (addr_w_offset*4): PC + 4));
- //always @(jr or srcA) $display("jr=%d, srcA=%d, PC=%h, newPC=%h", jr, srcA, PC,newPC);
-
 endmodule
 
 

@@ -10,7 +10,6 @@ module mips_tb;
     $dumpvars;
     clk = 0; 
     PC = 0; 
-    //#10000000 $finish;
   end  
 
   always #10 clk = ~clk;
@@ -39,7 +38,6 @@ module mips(input clk,
   begin
       PC <= newPC;
   end      
-  //always @(posedge clk) $display("PC=%d", newPC);
 
 endmodule
 
@@ -223,18 +221,15 @@ module processor(input clk,
       memWrite <= 1;
     end
 
-    default : begin
-      //$display("PC = %d, cmd = %h, DONE! CHECK RESULT IN R3!", PC, cmd);
+    default : begin      
       if ((PC != 0) ) 
         begin
           printWire = 1;
-          $finish(2); //$display("PC = %d, cmd = %h, DONE! CHECK RESULT IN R3!", PC, cmd);  //  && PC != 32'bx || (PC != 32'bx)
+          $finish(2); 
         end
     end 
   endcase
   end
-  //always @(ALUResult) $display("srcA=%d, srcB=%d, ac=%b, r=%d",srcA, srcB, ALUControl, ALUResult);
-  //always @(newPC) $display("r=%d Zero=%h, PCSrc=%d, branch=%d, PC=%h, newPC=%h", ALUControl, Zero, PCSrc, branch, PC, newPC);
 
 endmodule
 

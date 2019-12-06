@@ -21,16 +21,12 @@ always @(*)
   3'b111 : ALUResult <= SrcA < SrcB;
   3'bzzz : ALUResult <= 32'bx;
   default : $display("Error in ALU CASE");   
-endcase
-  //$display("Y=%d, Z=%h, Ctrl=%b", ALUResult, Zero, ALUControl);
-  
+endcase 
 end
 
 always @(ALUResult) begin
   if (ALUResult == 0) Zero = 1;
   else Zero = 0;
-
-  //$display("Y=%d, Z=%h, Ctrl=%h, A=%d, B=%d, shamt=%d", ALUResult, Zero, ALUControl, SrcA, SrcB, shamt);
 end
 
 endmodule 
