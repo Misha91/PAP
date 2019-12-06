@@ -6,9 +6,11 @@ module mips_tb;
   mips my_mips(clk, PC);
 
   initial begin 
+    $dumpfile("test.vcd");
+    $dumpvars;
     clk = 0; 
     PC = 0; 
-    #10000 $finish;
+    //#10000000 $finish;
   end  
 
   always #10 clk = ~clk;
@@ -37,7 +39,7 @@ module mips(input clk,
   begin
       PC <= newPC;
   end      
-  //always @(PC) $display("PC=%d", PC);
+  //always @(posedge clk) $display("PC=%d", newPC);
 
 endmodule
 
@@ -51,9 +53,10 @@ $display statement for debug easiness.
     
 module processor(input clk,
 	    	input [31:0] cmd, PC, 
-            	output [31:0] newPC, result);
+            	output [31:0] newPC, 
+                output [31:0] result);
 
-  reg WE3, regDst, aluSrc, memToReg, memWrite, branch, bne, jal, jr;
+  reg WE3, regDst, aluSrc, memToReg, memWrite, branch, bne, jal, jr, printWire;
   reg [4:0] A1, A2, shamt;
   reg [5:0] Op, funct;
   reg [31:0] WD3;
@@ -65,7 +68,7 @@ module processor(input clk,
 
   sign_ext my_sign(cmd[15:0], addr_w_offset);
   dmem my_dmem(clk, memWrite, ALUResult, RD2, RD);
-  reg_file my_reg(A1, A2, A3, result, clk, WE3, srcA, RD2);
+  reg_file my_reg(printWire, A1, A2, A3, result, clk, WE3, srcA, RD2);
   ALU my_alu(srcA, srcB, ALUControl, shamt, ALUResult, Zero);
   pc_update my_pc_update(PC, addr_w_offset, srcA, PCSrc, jal, jr, newPC);
 
@@ -77,7 +80,7 @@ module processor(input clk,
   mux2 mux_res_final(resultPre, PC+4, jal, result);
  
 	
-  always @(cmd)
+  always @(*)
   begin
     funct = cmd[5:0];
     A1 = cmd[25:21];
@@ -94,6 +97,7 @@ module processor(input clk,
     jal <= 0;
     jr <= 0;
     memWrite <= 0;
+    printWire <= 0;
 
 
   case (Op)
@@ -220,7 +224,12 @@ module processor(input clk,
     end
 
     default : begin
-      $display("cmd = %h, DONE! CHECK RESULT IN R3!", cmd);  
+      //$display("PC = %d, cmd = %h, DONE! CHECK RESULT IN R3!", PC, cmd);
+      if ((PC != 0) ) 
+        begin
+          printWire = 1;
+          $finish(2); //$display("PC = %d, cmd = %h, DONE! CHECK RESULT IN R3!", PC, cmd);  //  && PC != 32'bx || (PC != 32'bx)
+        end
     end 
   endcase
   end

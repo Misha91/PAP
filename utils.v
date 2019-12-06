@@ -2,7 +2,8 @@
 // Keep register 0 always equal to 0
 // Register 31 to be used as return adress
 
-module reg_file(input [4:0] A1, A2, A3,
+module reg_file(input printWire,
+                input [4:0] A1, A2, A3,
 		input [31:0] WD3,
 		input clk, WE3,
 		output reg [31:0] RD1, RD2);
@@ -20,7 +21,8 @@ module reg_file(input [4:0] A1, A2, A3,
         registers[A3] <= A3 ? (WE3 ? WD3 : registers[A3]) : 0;
     end     
 
-  always #10000 $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
+  always @(posedge printWire) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
+  
 //always @(registers[31]) $display( "%d",registers[31] );
 
 endmodule 

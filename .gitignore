@@ -1,2 +1,8 @@
+*.vcd
+*.vvp
 res.txt
 /code/make_res.txt
+*.dat
+/code/change_me
+*.o
+*.srec
