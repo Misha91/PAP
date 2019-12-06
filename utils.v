@@ -20,7 +20,7 @@ module reg_file(input [4:0] A1, A2, A3,
         registers[A3] <= A3 ? (WE3 ? WD3 : registers[A3]) : 0;
     end     
 
-  always #1000 $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
+  always #10000 $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
 //always @(registers[31]) $display( "%d",registers[31] );
 
 endmodule 

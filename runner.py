@@ -75,6 +75,12 @@ def callTest():
 
 def callGcd():
     print("************************************************")
+    A = input("Enter srcA: ")
+    B = input("Enter srcB: ")
+    inpVars = open("code/inputvars.def", "w")
+    inpVars.write("#define srcA " + str(A) + "\n")
+    inpVars.write("#define srcB " + str(B) + "\n")
+    inpVars.close()
     print("Preparing ...")
     dummyCode = open("code/dummy.S", "r")
     dummyCode = dummyCode.readlines()
@@ -104,8 +110,8 @@ def callGcd():
     res = res.readlines()
 
     resLine = res[-1]
-    resLine = (resLine.split(",")[2]).lstrip()
-    print("The result of GCD for " + var1 + " and " + var2 + " is " + str(resLine))
+    resLine = (resLine.split(",")[3]).lstrip()
+    print("The result of GCD for " + str(A) + " and " + str(B) + " is " + str(resLine))
 
 
 print("Welcome to MIPS in Verilog processor verification programm!")

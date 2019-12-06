@@ -8,7 +8,7 @@ module mips_tb;
   initial begin 
     clk = 0; 
     PC = 0; 
-    #1000 $finish;
+    #10000 $finish;
   end  
 
   always #10 clk = ~clk;

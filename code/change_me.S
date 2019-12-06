@@ -43,8 +43,9 @@
 
 start:
 _start:
-	addi     $1, $0, 4200
-	addi     $2, $0, 3528
+	#include "inputvars.def"
+	addi     $1, $0, srcA
+	addi     $2, $0, srcB
 
 loop:
 	beq    $1, $0, result_b
