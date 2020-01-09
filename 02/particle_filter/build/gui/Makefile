@@ -48,10 +48,10 @@ RM = /opt/cmake-3.16.2-Linux-x86_64/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mikhail/Desktop/dev/particle_filter
+CMAKE_SOURCE_DIR = /home/mikhail/Desktop/dev/PAP/02/particle_filter
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mikhail/Desktop/dev/particle_filter/build
+CMAKE_BINARY_DIR = /home/mikhail/Desktop/dev/PAP/02/particle_filter/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/mikhail/Desktop/dev/particle_filter/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/mikhail/Desktop/dev/particle_filter/build/CMakeFiles /home/mikhail/Desktop/dev/particle_filter/build/gui/CMakeFiles/progress.marks
-	cd /home/mikhail/Desktop/dev/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 gui/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mikhail/Desktop/dev/particle_filter/build/CMakeFiles 0
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/mikhail/Desktop/dev/PAP/02/particle_filter/build/CMakeFiles /home/mikhail/Desktop/dev/PAP/02/particle_filter/build/gui/CMakeFiles/progress.marks
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 gui/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mikhail/Desktop/dev/PAP/02/particle_filter/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/mikhail/Desktop/dev/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 gui/clean
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 gui/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/mikhail/Desktop/dev/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 gui/preinstall
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 gui/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/mikhail/Desktop/dev/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 gui/preinstall
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 gui/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/mikhail/Desktop/dev/particle_filter/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 gui/CMakeFiles/Gui.dir/rule:
-	cd /home/mikhail/Desktop/dev/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 gui/CMakeFiles/Gui.dir/rule
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 gui/CMakeFiles/Gui.dir/rule
 .PHONY : gui/CMakeFiles/Gui.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ Gui: gui/CMakeFiles/Gui.dir/rule
 
 # fast build rule for target.
 Gui/fast:
-	cd /home/mikhail/Desktop/dev/particle_filter/build && $(MAKE) -f gui/CMakeFiles/Gui.dir/build.make gui/CMakeFiles/Gui.dir/build
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter/build && $(MAKE) -f gui/CMakeFiles/Gui.dir/build.make gui/CMakeFiles/Gui.dir/build
 .PHONY : Gui/fast
 
 gui.o: gui.cpp.o
@@ -131,7 +131,7 @@ gui.o: gui.cpp.o
 
 # target to build an object file
 gui.cpp.o:
-	cd /home/mikhail/Desktop/dev/particle_filter/build && $(MAKE) -f gui/CMakeFiles/Gui.dir/build.make gui/CMakeFiles/Gui.dir/gui.cpp.o
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter/build && $(MAKE) -f gui/CMakeFiles/Gui.dir/build.make gui/CMakeFiles/Gui.dir/gui.cpp.o
 .PHONY : gui.cpp.o
 
 gui.i: gui.cpp.i
@@ -140,7 +140,7 @@ gui.i: gui.cpp.i
 
 # target to preprocess a source file
 gui.cpp.i:
-	cd /home/mikhail/Desktop/dev/particle_filter/build && $(MAKE) -f gui/CMakeFiles/Gui.dir/build.make gui/CMakeFiles/Gui.dir/gui.cpp.i
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter/build && $(MAKE) -f gui/CMakeFiles/Gui.dir/build.make gui/CMakeFiles/Gui.dir/gui.cpp.i
 .PHONY : gui.cpp.i
 
 gui.s: gui.cpp.s
@@ -149,7 +149,7 @@ gui.s: gui.cpp.s
 
 # target to generate assembly for a file
 gui.cpp.s:
-	cd /home/mikhail/Desktop/dev/particle_filter/build && $(MAKE) -f gui/CMakeFiles/Gui.dir/build.make gui/CMakeFiles/Gui.dir/gui.cpp.s
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter/build && $(MAKE) -f gui/CMakeFiles/Gui.dir/build.make gui/CMakeFiles/Gui.dir/gui.cpp.s
 .PHONY : gui.cpp.s
 
 # Help Target
@@ -175,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/mikhail/Desktop/dev/particle_filter/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

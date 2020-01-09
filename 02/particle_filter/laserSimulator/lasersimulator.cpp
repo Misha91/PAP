@@ -70,7 +70,8 @@ bool LaserSimulator::onMap(unsigned int x, unsigned int y) {
 LaserScan LaserSimulator::getScan(const RobotPosition &pose) {
   LaserScan result;
   numSamples = laserConf.count;
-
+  //double start_time, run_time;
+  //start_time = omp_get_wtime();
   points.resize(numSamples);
   result.resize(numSamples);
   scan.resize(numSamples);
@@ -90,8 +91,8 @@ LaserScan LaserSimulator::getScan(const RobotPosition &pose) {
   double angle = pose.phi + laserConf.minAngle;
   //#pragma omp for private(fx, fy, xx, yy) firstprivate(angle, rx, ry, cellSize) shared(points, result) schedule(auto)//
   for(int i=0;i<numSamples;i++) {
-    fx = pose.x + laserConf.maxRange*cos(angle + i * laserConf.resolution);
-    fy = pose.y + laserConf.maxRange*sin(angle + i * laserConf.resolution);
+    fx = pose.x + laserConf.maxRange*cos(angle );
+    fy = pose.y + laserConf.maxRange*sin(angle );
     SIntPoint pt = bresenham(rx,ry,real2gridX(fx),real2gridY(fy));
     xx = rx - pt.x;
     yy = ry - pt.y;
@@ -99,9 +100,10 @@ LaserScan LaserSimulator::getScan(const RobotPosition &pose) {
     points[i].x = grid2realX(pt.x);
     points[i].y = grid2realY(pt.y);
 
-    //angle += laserConf.resolution;
+    angle += laserConf.resolution;
   }
-
+  //run_time = omp_get_wtime() - start_time;
+  //printf("%.8f\n", run_time);
   return result;
 }
 

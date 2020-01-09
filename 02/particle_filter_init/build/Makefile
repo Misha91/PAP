@@ -48,24 +48,13 @@ RM = /opt/cmake-3.16.2-Linux-x86_64/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter
+CMAKE_SOURCE_DIR = /home/mikhail/Desktop/dev/PAP/02/particle_filter_init
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build
+CMAKE_BINARY_DIR = /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/opt/cmake-3.16.2-Linux-x86_64/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -78,11 +67,22 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/opt/cmake-3.16.2-Linux-x86_64/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build/CMakeFiles /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build/CMakeFiles /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -109,19 +109,6 @@ preinstall/fast:
 depend:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
-
-#=============================================================================
-# Target rules for targets named ParticleFilter2
-
-# Build rule for target.
-ParticleFilter2: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ParticleFilter2
-.PHONY : ParticleFilter2
-
-# fast build rule for target.
-ParticleFilter2/fast:
-	$(MAKE) -f CMakeFiles/ParticleFilter2.dir/build.make CMakeFiles/ParticleFilter2.dir/build
-.PHONY : ParticleFilter2/fast
 
 #=============================================================================
 # Target rules for targets named ParticleFilter
@@ -202,42 +189,14 @@ pf_main.cpp.s:
 	$(MAKE) -f CMakeFiles/ParticleFilter.dir/build.make CMakeFiles/ParticleFilter.dir/pf_main.cpp.s
 .PHONY : pf_main.cpp.s
 
-pf_main_(low_variance_sampling).o: pf_main_(low_variance_sampling).cpp.o
-
-.PHONY : pf_main_(low_variance_sampling).o
-
-# target to build an object file
-pf_main_(low_variance_sampling).cpp.o:
-	$(MAKE) -f CMakeFiles/ParticleFilter2.dir/build.make "CMakeFiles/ParticleFilter2.dir/pf_main_(low_variance_sampling).cpp.o"
-.PHONY : pf_main_(low_variance_sampling).cpp.o
-
-pf_main_(low_variance_sampling).i: pf_main_(low_variance_sampling).cpp.i
-
-.PHONY : pf_main_(low_variance_sampling).i
-
-# target to preprocess a source file
-pf_main_(low_variance_sampling).cpp.i:
-	$(MAKE) -f CMakeFiles/ParticleFilter2.dir/build.make "CMakeFiles/ParticleFilter2.dir/pf_main_(low_variance_sampling).cpp.i"
-.PHONY : pf_main_(low_variance_sampling).cpp.i
-
-pf_main_(low_variance_sampling).s: pf_main_(low_variance_sampling).cpp.s
-
-.PHONY : pf_main_(low_variance_sampling).s
-
-# target to generate assembly for a file
-pf_main_(low_variance_sampling).cpp.s:
-	$(MAKE) -f CMakeFiles/ParticleFilter2.dir/build.make "CMakeFiles/ParticleFilter2.dir/pf_main_(low_variance_sampling).cpp.s"
-.PHONY : pf_main_(low_variance_sampling).cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... ParticleFilter2"
+	@echo "... edit_cache"
 	@echo "... ParticleFilter"
 	@echo "... LaserDataLoader"
 	@echo "... Gui"
@@ -245,9 +204,6 @@ help:
 	@echo "... pf_main.o"
 	@echo "... pf_main.i"
 	@echo "... pf_main.s"
-	@echo "... pf_main_(low_variance_sampling).o"
-	@echo "... pf_main_(low_variance_sampling).i"
-	@echo "... pf_main_(low_variance_sampling).s"
 .PHONY : help
 
 

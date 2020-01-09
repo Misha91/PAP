@@ -6,5 +6,5 @@ CXX_FLAGS =   -Wno-deprecated -fopenmp -O3 -g   -std=c++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/include/vtk-5.10 -I/home/mikhail/Desktop/dev/particle_filter 
+CXX_INCLUDES = -I/usr/include/vtk-5.10 -I/home/mikhail/Desktop/dev/PAP/02/particle_filter 
 

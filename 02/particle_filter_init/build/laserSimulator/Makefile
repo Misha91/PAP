@@ -48,10 +48,10 @@ RM = /opt/cmake-3.16.2-Linux-x86_64/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter
+CMAKE_SOURCE_DIR = /home/mikhail/Desktop/dev/PAP/02/particle_filter_init
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build
+CMAKE_BINARY_DIR = /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build/CMakeFiles /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build/laserSimulator/CMakeFiles/progress.marks
-	cd /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 laserSimulator/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build/CMakeFiles 0
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build/CMakeFiles /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build/laserSimulator/CMakeFiles/progress.marks
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build && $(MAKE) -f CMakeFiles/Makefile2 laserSimulator/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 laserSimulator/clean
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build && $(MAKE) -f CMakeFiles/Makefile2 laserSimulator/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 laserSimulator/preinstall
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build && $(MAKE) -f CMakeFiles/Makefile2 laserSimulator/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 laserSimulator/preinstall
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build && $(MAKE) -f CMakeFiles/Makefile2 laserSimulator/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 laserSimulator/CMakeFiles/lasersimulator.dir/rule:
-	cd /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build && $(MAKE) -f CMakeFiles/Makefile2 laserSimulator/CMakeFiles/lasersimulator.dir/rule
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build && $(MAKE) -f CMakeFiles/Makefile2 laserSimulator/CMakeFiles/lasersimulator.dir/rule
 .PHONY : laserSimulator/CMakeFiles/lasersimulator.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ lasersimulator: laserSimulator/CMakeFiles/lasersimulator.dir/rule
 
 # fast build rule for target.
 lasersimulator/fast:
-	cd /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build && $(MAKE) -f laserSimulator/CMakeFiles/lasersimulator.dir/build.make laserSimulator/CMakeFiles/lasersimulator.dir/build
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build && $(MAKE) -f laserSimulator/CMakeFiles/lasersimulator.dir/build.make laserSimulator/CMakeFiles/lasersimulator.dir/build
 .PHONY : lasersimulator/fast
 
 lasersimulator.o: lasersimulator.cpp.o
@@ -131,7 +131,7 @@ lasersimulator.o: lasersimulator.cpp.o
 
 # target to build an object file
 lasersimulator.cpp.o:
-	cd /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build && $(MAKE) -f laserSimulator/CMakeFiles/lasersimulator.dir/build.make laserSimulator/CMakeFiles/lasersimulator.dir/lasersimulator.cpp.o
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build && $(MAKE) -f laserSimulator/CMakeFiles/lasersimulator.dir/build.make laserSimulator/CMakeFiles/lasersimulator.dir/lasersimulator.cpp.o
 .PHONY : lasersimulator.cpp.o
 
 lasersimulator.i: lasersimulator.cpp.i
@@ -140,7 +140,7 @@ lasersimulator.i: lasersimulator.cpp.i
 
 # target to preprocess a source file
 lasersimulator.cpp.i:
-	cd /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build && $(MAKE) -f laserSimulator/CMakeFiles/lasersimulator.dir/build.make laserSimulator/CMakeFiles/lasersimulator.dir/lasersimulator.cpp.i
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build && $(MAKE) -f laserSimulator/CMakeFiles/lasersimulator.dir/build.make laserSimulator/CMakeFiles/lasersimulator.dir/lasersimulator.cpp.i
 .PHONY : lasersimulator.cpp.i
 
 lasersimulator.s: lasersimulator.cpp.s
@@ -149,7 +149,7 @@ lasersimulator.s: lasersimulator.cpp.s
 
 # target to generate assembly for a file
 lasersimulator.cpp.s:
-	cd /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build && $(MAKE) -f laserSimulator/CMakeFiles/lasersimulator.dir/build.make laserSimulator/CMakeFiles/lasersimulator.dir/lasersimulator.cpp.s
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build && $(MAKE) -f laserSimulator/CMakeFiles/lasersimulator.dir/build.make laserSimulator/CMakeFiles/lasersimulator.dir/lasersimulator.cpp.s
 .PHONY : lasersimulator.cpp.s
 
 # Help Target
@@ -175,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

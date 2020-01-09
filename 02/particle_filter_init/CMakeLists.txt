@@ -8,6 +8,13 @@ add_definitions("-std=c++11")
 find_package(VTK REQUIRED)
 include(${VTK_USE_FILE})
 
+find_package(OpenMP)
+if (OPENMP_FOUND)
+    set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+    set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
+endif()
+
 include_directories ("${PROJECT_SOURCE_DIR}")
 
 add_subdirectory(dataLoader)
@@ -20,6 +27,5 @@ add_subdirectory(laserSimulator)
 set(LIBS ${LIBS} lasersimulator)
 
 add_executable(ParticleFilter pf_main.cpp)
-add_executable(ParticleFilter2 "pf_main (low_variance_sampling).cpp")
 target_link_libraries(ParticleFilter ${LIBS} ${VTK_LIBRARIES})
-target_link_libraries(ParticleFilter2 ${LIBS} ${VTK_LIBRARIES})
+

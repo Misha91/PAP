@@ -26,7 +26,9 @@ set(LIBS ${LIBS} Gui)
 add_subdirectory(laserSimulator)
 set(LIBS ${LIBS} lasersimulator)
 
-add_executable(ParticleFilter pf_main_init.cpp)
-add_executable(ParticleFilterInit pf_main_init.cpp)
+add_executable(ParticleFilter pf_main.cpp)
+SET(CMAKE_C_COMPILER mpicc)
+SET(CMAKE_CXX_COMPILER mpicxx)
+target_link_libraries(ParticleFilter mpi)
 target_link_libraries(ParticleFilter ${LIBS} ${VTK_LIBRARIES})
 

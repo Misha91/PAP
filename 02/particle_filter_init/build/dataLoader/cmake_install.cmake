@@ -1,4 +1,4 @@
-# Install script for directory: /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/dataLoader
+# Install script for directory: /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/dataLoader
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

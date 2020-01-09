@@ -1,4 +1,4 @@
-# Install script for directory: /home/mikhail/Desktop/dev/mkr_tm_ws/src/particle_filter/gui
+# Install script for directory: /home/mikhail/Desktop/dev/PAP/02/particle_filter_init/gui
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

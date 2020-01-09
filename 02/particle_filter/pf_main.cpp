@@ -31,8 +31,8 @@
 #include "dataLoader/laserDataLoader.h"
 #include "laserSimulator/lasersimulator.h"
 #include "typedefs.h"
-
-#define NUM_THREADS 8
+#include "mpi/mpi.h"
+#define NUM_THREADS 1
 
 #define ALPHA_HIT 0.9 //0.9
 #define ALPHA_SHORT 1 //1
@@ -61,32 +61,6 @@ RobotPosition prev_pos;
 LaserScan scan;
 PointList scanPoints;
 
-void test(){
-  static long num_steps = 100000000;
-
-  double step;
-  double pi;
-  double start_time, run_time;
-
-  step = 1.0/(double) num_steps;
-
-  omp_set_num_threads(NUM_THREADS);
-  int i;
-  double x, sum;
-  start_time = omp_get_wtime();
-  #pragma omp parallel for reduction(+:sum) private(x)// schedule(default)
-
-    for (i=0;i<= num_steps; i+=1){
-      x = (i-0.5)*step;
-      sum +=4.0/(1.0+x*x);
-    }
-
-  pi += step * sum;
-
-
-  run_time = omp_get_wtime() - start_time;
-  printf("\n pi with %ld steps is %lf in %lf seconds\n \n",num_steps,pi,run_time);
-}
 /* Return one sample of a uniform distribution between min and max
  */
 double uniformSample(double min=0, double max=1)
@@ -322,9 +296,10 @@ ParticleVector rouletteSampler(const ParticleVector init, LaserSimulator simul){
     #pragma omp declare reduction (merge : ParticleVector: omp_out.insert(omp_out.end(), omp_in.begin(), omp_in.end()))
     double tmp;
     Particle won;
-    double start_time, run_time;
+
       //ParticleVector result_tmp;
-    start_time = omp_get_wtime();
+    //double start_time, run_time;
+    //start_time = omp_get_wtime();
     #pragma omp parallel for default(shared) private(tmp, won) firstprivate(weightAdder, init) reduction(merge: result) schedule(auto)
     for (int i = 0; i < (int)(0.95*init.size()); i++)
     {
@@ -365,7 +340,7 @@ ParticleVector rouletteSampler(const ParticleVector init, LaserSimulator simul){
               result.push_back(p);
          }
     }
-    //printf("%lu\n", result.size());
+
     return result;
 }
 // ----------------------------------------------------------------
@@ -376,8 +351,15 @@ int main(int argc, char** argv)
     double start_time, run_time;
     omp_set_num_threads(NUM_THREADS);
 
+    int numprocs, rank, namelen;
+    char processor_name[MPI_MAX_PROCESSOR_NAME];
 
+    MPI_Init(&argc, &argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Get_processor_name(processor_name, &namelen);
 
+    #define HOST_RANK 0
     unsigned int nMeasurements = 10;
     char *dataFile;
 
@@ -443,15 +425,18 @@ int main(int argc, char** argv)
 
     Measurement measurement;
     RobotPosition pos;
-
-    // Load the map as a grid.
     vtkSmartPointer<vtkPNGReader> reader = vtkSmartPointer<vtkPNGReader>::New();
     reader->SetFileName("../data/belgioioso-map5b.png");
 
-    //simul(reader)
+    Gui * gui;
+    if (rank == HOST_RANK)
+    {
+      gui = new Gui(reader);
+    }
+
+
     imr::LaserSimulator simul(reader);
 
-    Gui gui(reader);
     std::cout << "X: " << simul.grid2realX(0) << " " << simul.grid2realX(1872) << std::endl;
     std::cout << "Y: " << simul.grid2realY(0) << " " << simul.grid2realY(5015) << std::endl;
 
@@ -491,16 +476,25 @@ int main(int argc, char** argv)
           probabilities.push_back(WeightedPoint(x, y, w));
        }
     }
-    gui.setProbabilityMap(probabilities, true, 2);
-    gui.startInteractor();
-    gui.clearProbabilityMap();
+
+    if (rank == HOST_RANK)
+    {
+      gui->setProbabilityMap(probabilities, true, 2);
+      gui->startInteractor();
+      gui->clearProbabilityMap();
+    }
 
     auto begin = steady_clock::now();
     LaserScan scanTest;
+    std::vector <double> timeVector;
+    nMeasurements = nMeasurements > 3950 ? 3950 : nMeasurements;
+
+
+
 
     for (size_t i = 0; i < nMeasurements; i++)
     {
-         start_time = omp_get_wtime();
+
          static int step_num = 0;
          pos = loader[i].position;
          scanTest = loader[i].scan; //0th, 10th, 20th
@@ -535,39 +529,68 @@ int main(int argc, char** argv)
            }
            // ----------------------------------------------------------
 
-
+           start_time = omp_get_wtime();
            particles = rouletteSampler(particles, simul);
-           particles = moveParticles(particles, delta_rot1,delta_rot2,delta_trans, simul);// please check
+           particles = moveParticles(particles, delta_rot1,delta_rot2,delta_trans, simul);
+           particles = weightUpdate(particles, simul, scanTest);
+           run_time = omp_get_wtime() - start_time;
+           timeVector.push_back(run_time);
+           //printf("%.8f\n", run_time);
 
+           if (rank != HOST_RANK)
+           {
+             MPI_Send(&max_weight.second.pos.x, 1, MPI_DOUBLE, 1, 0, MPI_COMM_WORLD);
+             MPI_Send(&max_weight.second.pos.y, 1, MPI_DOUBLE, 1, 0, MPI_COMM_WORLD);
+             MPI_Send(&max_weight.second.pos.phi, 1, MPI_DOUBLE, 1, 0, MPI_COMM_WORLD);
+           }
+           else
+           {
+             #pragma omp declare reduction (merge : ParticleVector: omp_out.insert(omp_out.end(), omp_in.begin(), omp_in.end()))
 
-           particles = weightUpdate(particles, simul, scanTest); //use scanTest instead - done by MI
+             #pragma omp parallel for default(shared) reduction(merge: particles) schedule(auto)
+             for (int u = 1; u < numprocs; u++)
+             {
+               double rec_x, rec_y, rec_phi;
+               MPI_Recv(&rec_x, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+               MPI_Recv(&rec_y, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+               MPI_Recv(&rec_phi, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+               Particle p;
+               p.pos = RobotPosition(rec_x, rec_y, rec_phi);
+               p.weight = 1;
+               particles.push_back(p);
+             }
+           }
+
            prev_pos = pos;
-
-       //printf("\n");
-
            max_weight.first = 0;
+
          }
 
          // storing position data
 
 
          // printing particles on map
-         // gui.clearPositionPoints();
+         // gui->clearPositionPoints();
+         if (rank == HOST_RANK)
+         {
+           gui->setPosition(robotPosition2point(pos));
+           gui->clearMapPoints();
+           gui->setPointsToMap(scanPoints, robotPosition2point(pos));
+           gui->setParticlePoints(particles, true);
+           gui->startInteractor();
 
-         gui.setPosition(robotPosition2point(pos));
-         gui.clearMapPoints();
-         gui.setPointsToMap(scanPoints, robotPosition2point(pos));
-         gui.setParticlePoints(particles, true);
-         gui.startInteractor();
-         run_time = omp_get_wtime() - start_time;
-         //printf("%.12f\n", run_time);
+         }
+
+
+
         step_num++;
     }
-
+    printf("\n%.20f\n", std::accumulate( timeVector.begin(), timeVector.end(), 0.0)/timeVector.size());
     auto end = steady_clock::now();
     std::chrono::duration<double> elapsed_secs = end - begin;
     std::cout << "ELAPSED TIME: " << elapsed_secs.count() << " s" << std::endl;
-    gui.startInteractor();
+    gui->startInteractor();
     return EXIT_SUCCESS;
 }
 

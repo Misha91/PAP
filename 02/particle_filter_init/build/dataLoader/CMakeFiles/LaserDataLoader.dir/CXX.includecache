@@ -6,3 +6,31 @@
 
 #IncludeRegexTransform: 
 
+../typedefs.h
+functional
+-
+vector
+-
+
+/home/mikhail/Desktop/dev/PAP/02/particle_filter_init/dataLoader/laserDataLoader.cpp
+cstdlib
+-
+fstream
+-
+iostream
+-
+sstream
+-
+typedefs.h
+-
+laserDataLoader.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter_init/dataLoader/laserDataLoader.h
+
+/home/mikhail/Desktop/dev/PAP/02/particle_filter_init/dataLoader/laserDataLoader.h
+string
+-
+vector
+-
+typedefs.h
+-
+

@@ -4,8 +4,8 @@
 gui/CMakeFiles/Gui.dir/gui.cpp.o
  ../dataLoader/laserDataLoader.h
  ../typedefs.h
- /home/mikhail/Desktop/dev/particle_filter/gui/gui.cpp
- /home/mikhail/Desktop/dev/particle_filter/gui/gui.h
+ /home/mikhail/Desktop/dev/PAP/02/particle_filter/gui/gui.cpp
+ /home/mikhail/Desktop/dev/PAP/02/particle_filter/gui/gui.h
  /usr/include/vtk-5.10/vtkABI.h
  /usr/include/vtk-5.10/vtkAbstractArray.h
  /usr/include/vtk-5.10/vtkAbstractMapper.h

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/mikhail/Desktop/dev/particle_filter/dataLoader/laserDataLoader.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/dataLoader/laserDataLoader.h
 string
 -
 vector
@@ -14,7 +14,7 @@ vector
 typedefs.h
 -
 
-/home/mikhail/Desktop/dev/particle_filter/gui/gui.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/gui/gui.h
 vector
 -
 vtkActor.h
@@ -42,9 +42,9 @@ vtkSmartPointer.h
 vtkVertexGlyphFilter.h
 -
 dataLoader/laserDataLoader.h
-/home/mikhail/Desktop/dev/particle_filter/gui/dataLoader/laserDataLoader.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/gui/dataLoader/laserDataLoader.h
 
-/home/mikhail/Desktop/dev/particle_filter/laserSimulator/lasersimulator.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/laserSimulator/lasersimulator.h
 vtkPNGReader.h
 -
 vtkSmartPointer.h
@@ -54,11 +54,11 @@ vector
 typedefs.h
 -
 matrix_utils.h
-/home/mikhail/Desktop/dev/particle_filter/laserSimulator/matrix_utils.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/laserSimulator/matrix_utils.h
 
-/home/mikhail/Desktop/dev/particle_filter/laserSimulator/matrix_utils.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/laserSimulator/matrix_utils.h
 
-/home/mikhail/Desktop/dev/particle_filter/pf_main.cpp
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/pf_main.cpp
 cassert
 -
 chrono
@@ -84,15 +84,17 @@ omp.h
 utility
 -
 gui/gui.h
-/home/mikhail/Desktop/dev/particle_filter/gui/gui.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/gui/gui.h
 dataLoader/laserDataLoader.h
-/home/mikhail/Desktop/dev/particle_filter/dataLoader/laserDataLoader.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/dataLoader/laserDataLoader.h
 laserSimulator/lasersimulator.h
-/home/mikhail/Desktop/dev/particle_filter/laserSimulator/lasersimulator.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/laserSimulator/lasersimulator.h
 typedefs.h
-/home/mikhail/Desktop/dev/particle_filter/typedefs.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/typedefs.h
+mpi/mpi.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/mpi/mpi.h
 
-/home/mikhail/Desktop/dev/particle_filter/typedefs.h
+/home/mikhail/Desktop/dev/PAP/02/particle_filter/typedefs.h
 functional
 -
 vector
