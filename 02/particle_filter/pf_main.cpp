@@ -33,7 +33,7 @@
 #include "typedefs.h"
 #include "mpi/mpi.h"
 #define NUM_THREADS 1
-
+#define NUM_POINTS 4000
 #define ALPHA_HIT 0.9 //0.9
 #define ALPHA_SHORT 1 //1
 #define ALPHA_RAND 1 //1
@@ -324,7 +324,7 @@ ParticleVector rouletteSampler(const ParticleVector init, LaserSimulator simul){
     double y;
     double phi;
 
-    while (result.size() != init.size())
+    while (result.size() != NUM_POINTS)
     {
          // random particle
          x = uniformSample(-16.96, 19.7243);
@@ -451,7 +451,7 @@ int main(int argc, char** argv)
     double delta_x, delta_y, delta_phi,theta;
     double delta_rot1,delta_rot2,delta_trans;
 
-    for (size_t i = 0; i < 4000;)
+    for (size_t i = 0; i < NUM_POINTS;)
     {
        x = uniformSample(-16.96, 19.7243);
        y = uniformSample(-43.25, 55.0255);
@@ -460,7 +460,7 @@ int main(int argc, char** argv)
        p.pos = RobotPosition(x, y, phi);
        if (simul.isFeasible(p.pos))
        {
-          p.weight = 1.0 / 4000.0;
+          p.weight = 1.0 / NUM_POINTS;
           particles.push_back(p);
           i++;
        }
@@ -539,9 +539,12 @@ int main(int argc, char** argv)
 
            if (rank != HOST_RANK)
            {
-             MPI_Send(&max_weight.second.pos.x, 1, MPI_DOUBLE, 1, 0, MPI_COMM_WORLD);
-             MPI_Send(&max_weight.second.pos.y, 1, MPI_DOUBLE, 1, 0, MPI_COMM_WORLD);
-             MPI_Send(&max_weight.second.pos.phi, 1, MPI_DOUBLE, 1, 0, MPI_COMM_WORLD);
+             double to_send[] = {max_weight.second.pos.x, max_weight.second.pos.y,
+             max_weight.second.pos.phi, max_weight.second.weight};
+
+             int res = MPI_Send(to_send, 4, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
+             printf("%d\n", res);
+
            }
            else
            {
@@ -550,15 +553,14 @@ int main(int argc, char** argv)
              #pragma omp parallel for default(shared) reduction(merge: particles) schedule(auto)
              for (int u = 1; u < numprocs; u++)
              {
-               double rec_x, rec_y, rec_phi;
-               MPI_Recv(&rec_x, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-               MPI_Recv(&rec_y, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-               MPI_Recv(&rec_phi, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-
+               double to_recieve[4];
+               int res = MPI_Recv(to_recieve, 4, MPI_DOUBLE, u, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+               printf("%d\n", res);
                Particle p;
-               p.pos = RobotPosition(rec_x, rec_y, rec_phi);
-               p.weight = 1;
+               p.pos = RobotPosition(to_recieve[0], to_recieve[1], to_recieve[2]);
+               p.weight = to_recieve[3];
                particles.push_back(p);
+
              }
            }
 
