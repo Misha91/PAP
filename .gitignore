@@ -1,9 +1,10 @@
-code/inputvars.def
+/01/code/inputvars.def
 *.vcd
 *.vvp
 res.txt
-/code/make_res.txt
+/01/code/make_res.txt
 *.dat
-/code/change_me
+/01/code/change_me
 *.o
 *.srec
+/02/build/*

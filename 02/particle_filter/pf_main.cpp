@@ -593,6 +593,7 @@ int main(int argc, char** argv)
     std::chrono::duration<double> elapsed_secs = end - begin;
     std::cout << "ELAPSED TIME: " << elapsed_secs.count() << " s" << std::endl;
     gui->startInteractor();
+    MPI_Finalize();
     return EXIT_SUCCESS;
 }
 
