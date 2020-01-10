@@ -7,4 +7,4 @@ res.txt
 /01/code/change_me
 *.o
 *.srec
-/02/build/*
+/02/particle_filter/build/*
