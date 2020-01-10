@@ -34,6 +34,7 @@
 #include "mpi/mpi.h"
 #define NUM_THREADS 4
 #define NUM_POINTS 4000
+#define POINTS_FROM_PREV 0.95 //0.95
 #define ALPHA_HIT 0.9 //0.9
 #define ALPHA_SHORT 1 //1
 #define ALPHA_RAND 1 //1
@@ -301,7 +302,7 @@ ParticleVector rouletteSampler(const ParticleVector init, LaserSimulator simul){
     //double start_time, run_time;
     //start_time = omp_get_wtime();
     #pragma omp parallel for default(shared) private(tmp, won) firstprivate(weightAdder, init) reduction(merge: result) schedule(auto)
-    for (int i = 0; i < (int)(0.95*init.size()); i++)
+    for (int i = 0; i < (int)(POINTS_FROM_PREV*init.size()); i++)
     {
         //#pragma omp task firstprivate(i)
         //for (int i = 0; i < 10; i++){
