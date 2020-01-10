@@ -415,7 +415,7 @@ int main(int argc, char** argv)
     double delta_x, delta_y, delta_phi,theta;
     double delta_rot1,delta_rot2,delta_trans;
 
-    for (size_t i = 0; i < 4000;)
+    for (size_t i = 0; i < 2000;)
     {
        x = uniformSample(-16.96, 19.7243);
        y = uniformSample(-43.25, 55.0255);
@@ -424,7 +424,7 @@ int main(int argc, char** argv)
        p.pos = RobotPosition(x, y, phi);
        if (simul.isFeasible(p.pos))
        {
-          p.weight = 1.0 / 4000.0;
+          p.weight = 1.0 / 2000.0;
           particles.push_back(p);
           i++;
        }
