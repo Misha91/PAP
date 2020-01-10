@@ -32,7 +32,7 @@
 #include "laserSimulator/lasersimulator.h"
 #include "typedefs.h"
 #include "mpi/mpi.h"
-#define NUM_THREADS 1
+#define NUM_THREADS 4
 #define NUM_POINTS 4000
 #define ALPHA_HIT 0.9 //0.9
 #define ALPHA_SHORT 1 //1
@@ -542,26 +542,33 @@ int main(int argc, char** argv)
              double to_send[] = {max_weight.second.pos.x, max_weight.second.pos.y,
              max_weight.second.pos.phi, max_weight.second.weight};
 
-             int res = MPI_Send(to_send, 4, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
-             printf("%d\n", res);
+             int res = MPI_Send(to_send, 4, MPI_DOUBLE, HOST_RANK, 0, MPI_COMM_WORLD);
+             //do
+             //{
+               //MPI_Recv(&res, 1, MPI_INT, HOST_RANK, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+               //printf("%d %d %d\n", rank, step_num, res);
+            // }while (res != step_num);
 
            }
            else
            {
-             #pragma omp declare reduction (merge : ParticleVector: omp_out.insert(omp_out.end(), omp_in.begin(), omp_in.end()))
+             //#pragma omp declare reduction (merge : ParticleVector: omp_out.insert(omp_out.end(), omp_in.begin(), omp_in.end()))
 
-             #pragma omp parallel for default(shared) reduction(merge: particles) schedule(auto)
-             for (int u = 1; u < numprocs; u++)
+             //#pragma omp parallel for default(shared) reduction(merge: particles) schedule(auto)
+             for (int u = 0; u < numprocs; u++)
              {
+               if (u == HOST_RANK) continue;
                double to_recieve[4];
                int res = MPI_Recv(to_recieve, 4, MPI_DOUBLE, u, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-               printf("%d\n", res);
+               //printf("%d %d %.12f %.2f %.2f %.3f\n", u, numprocs, to_recieve[3], to_recieve[0], to_recieve[1], to_recieve[2]);
                Particle p;
                p.pos = RobotPosition(to_recieve[0], to_recieve[1], to_recieve[2]);
                p.weight = to_recieve[3];
                particles.push_back(p);
+               //MPI_Send(&step_num, 1, MPI_INT, u, 0, MPI_COMM_WORLD);
 
              }
+             printf("%d\n", step_num);
            }
 
            prev_pos = pos;
