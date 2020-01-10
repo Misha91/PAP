@@ -1,2 +1,0 @@
-/usr/bin/ar qc liblasersimulator.a  CMakeFiles/lasersimulator.dir/lasersimulator.cpp.o
-/usr/bin/ranlib liblasersimulator.a

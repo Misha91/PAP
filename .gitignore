@@ -1,10 +1,16 @@
-/01/code/inputvars.def
+"/01 Simple MIPS CPU/code/inputvars.def"
 *.vcd
 *.vvp
 res.txt
-/01/code/make_res.txt
+"/01 Simple MIPS CPU/code/make_res.txt"
 *.dat
-/01/code/change_me
+"/01 Simple MIPS CPU/code/change_me"
 *.o
 *.srec
-/02/particle_filter/build/*
+"/02 OpenMP OpenMPI/particle_filter/build/*"
+"/02 OpenMP OpenMPI/particle_filter_init/build/*"
+"/02 OpenMP OpenMPI/particle_filter/build/"
+"/02 OpenMP OpenMPI/particle_filter_init/build/"
+
+
+
