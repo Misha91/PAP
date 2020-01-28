@@ -1,0 +1,240 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x273f610 .scope module, "dmem" "dmem" 2 49;
+ .timescale 0 0;
+L_0x277cc00 .functor BUFZ 32, L_0x277ca20, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+v0x27290e0 .array "RAM", 0 127, 31 0;
+v0x274fd50_0 .net *"_s0", 31 0, L_0x277ca20; 1 drivers
+v0x277aef0_0 .net *"_s3", 5 0, L_0x277cb10; 1 drivers
+v0x277af90_0 .net "a", 31 0, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; 0 drivers
+v0x277b040_0 .net "clk", 0 0, C4<z>; 0 drivers
+v0x277b0e0_0 .net "rd", 31 0, L_0x277cc00; 1 drivers
+v0x277b1c0_0 .net "wd", 31 0, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; 0 drivers
+v0x277b260_0 .net "we", 0 0, C4<z>; 0 drivers
+E_0x273f750 .event posedge, v0x277b040_0;
+L_0x277ca20 .array/port v0x27290e0, L_0x277cb10;
+L_0x277cb10 .part C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>, 2, 6;
+S_0x2750bb0 .scope module, "mips" "mips" 2 1;
+ .timescale 0 0;
+v0x277c160_0 .var "PC", 31 0;
+v0x277c1e0_0 .var "clk", 0 0;
+v0x277c290_0 .net "cmd", 31 0, L_0x277cdb0; 1 drivers
+v0x277c360_0 .net "result", 31 0, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; 0 drivers
+E_0x277b010 .event edge, v0x277bbd0_0;
+E_0x277b390 .event posedge, v0x277bb50_0;
+L_0x277ce60 .part v0x277c160_0, 2, 6;
+S_0x277bde0 .scope module, "imem_mod" "imem" 2 7, 2 62, S_0x2750bb0;
+ .timescale 0 0;
+L_0x277cdb0 .functor BUFZ 32, L_0x277cce0, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+v0x277bed0 .array "RAM", 0 3, 31 0;
+v0x277bf70_0 .net *"_s0", 31 0, L_0x277cce0; 1 drivers
+v0x277c010_0 .net "a", 5 0, L_0x277ce60; 1 drivers
+v0x277c0b0_0 .alias "rd", 31 0, v0x277c290_0;
+L_0x277cce0 .array/port v0x277bed0, L_0x277ce60;
+S_0x277b3e0 .scope module, "my_ctrl" "ctrl" 2 8, 2 28, S_0x2750bb0;
+ .timescale 0 0;
+v0x277b870_0 .var "A1", 4 0;
+v0x277b930_0 .var "A2", 4 0;
+v0x277b9d0_0 .var "Op", 5 0;
+v0x277ba70_0 .net "addr_w_offset", 31 0, L_0x277d1d0; 1 drivers
+v0x277bb50_0 .net "clk", 0 0, v0x277c1e0_0; 1 drivers
+v0x277bbd0_0 .alias "cmd", 31 0, v0x277c290_0;
+v0x277bc50_0 .var "funct", 5 0;
+v0x277bcf0_0 .alias "result", 31 0, v0x277c360_0;
+L_0x277d580 .part L_0x277cdb0, 0, 16;
+S_0x277b4d0 .scope module, "my_sign" "sign_ext" 2 38, 3 21, S_0x277b3e0;
+ .timescale 0 0;
+v0x277b5c0_0 .net "A", 15 0, L_0x277d580; 1 drivers
+v0x277b680_0 .alias "Y", 31 0, v0x277ba70_0;
+v0x277b720_0 .net *"_s1", 0 0, L_0x277cf50; 1 drivers
+v0x277b7c0_0 .net *"_s2", 15 0, L_0x277d020; 1 drivers
+L_0x277cf50 .part L_0x277d580, 15, 1;
+LS_0x277d020_0_0 .concat [ 1 1 1 1], L_0x277cf50, L_0x277cf50, L_0x277cf50, L_0x277cf50;
+LS_0x277d020_0_4 .concat [ 1 1 1 1], L_0x277cf50, L_0x277cf50, L_0x277cf50, L_0x277cf50;
+LS_0x277d020_0_8 .concat [ 1 1 1 1], L_0x277cf50, L_0x277cf50, L_0x277cf50, L_0x277cf50;
+LS_0x277d020_0_12 .concat [ 1 1 1 1], L_0x277cf50, L_0x277cf50, L_0x277cf50, L_0x277cf50;
+L_0x277d020 .concat [ 4 4 4 4], LS_0x277d020_0_0, LS_0x277d020_0_4, LS_0x277d020_0_8, LS_0x277d020_0_12;
+L_0x277d1d0 .concat [ 16 16 0 0], L_0x277d580, L_0x277d020;
+S_0x273cdd0 .scope module, "reg_file" "reg_file" 3 1;
+ .timescale 0 0;
+v0x277c440_0 .net "A1", 4 0, C4<zzzzz>; 0 drivers
+v0x277c4e0_0 .net "A2", 4 0, C4<zzzzz>; 0 drivers
+v0x277c580_0 .net "A3", 4 0, C4<zzzzz>; 0 drivers
+v0x277c620_0 .var "RD1", 31 0;
+v0x277c6d0_0 .var "RD2", 31 0;
+v0x277c770_0 .net "WD3", 31 0, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; 0 drivers
+v0x277c810_0 .net "WE3", 0 0, C4<z>; 0 drivers
+v0x277c8b0_0 .net "clk", 0 0, C4<z>; 0 drivers
+v0x277c9a0 .array "registers", 0 31, 31 0;
+E_0x277c410 .event posedge, v0x277c8b0_0;
+    .scope S_0x273f610;
+T_0 ;
+    %wait E_0x273f750;
+    %load/v 8, v0x277b260_0, 1;
+    %jmp/0xz  T_0.0, 8;
+    %load/v 8, v0x277b1c0_0, 32;
+    %ix/load 1, 2, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_0.2, 4;
+    %load/x1p 40, v0x277af90_0, 30;
+    %jmp T_0.3;
+T_0.2 ;
+    %mov 40, 2, 30;
+T_0.3 ;
+; Save base=40 wid=30 in lookaside.
+    %ix/get 3, 40, 30;
+    %jmp/1 t_0, 4;
+    %ix/load 0, 32, 0; word width
+    %ix/load 1, 0, 0; part off
+    %assign/av v0x27290e0, 0, 8;
+t_0 ;
+T_0.0 ;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_0x277bde0;
+T_1 ;
+    %vpi_call 2 70 "$readmemh", "memfile.dat", v0x277bed0;
+    %end;
+    .thread T_1;
+    .scope S_0x277b3e0;
+T_2 ;
+    %load/v 8, v0x277bbd0_0, 6; Only need 6 of 32 bits
+; Save base=8 wid=6 in lookaside.
+    %set/v v0x277bc50_0, 8, 6;
+    %ix/load 1, 21, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.0, 4;
+    %load/x1p 8, v0x277bbd0_0, 5;
+    %jmp T_2.1;
+T_2.0 ;
+    %mov 8, 2, 5;
+T_2.1 ;
+; Save base=8 wid=5 in lookaside.
+    %set/v v0x277b870_0, 8, 5;
+    %ix/load 1, 16, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.2, 4;
+    %load/x1p 8, v0x277bbd0_0, 5;
+    %jmp T_2.3;
+T_2.2 ;
+    %mov 8, 2, 5;
+T_2.3 ;
+; Save base=8 wid=5 in lookaside.
+    %set/v v0x277b930_0, 8, 5;
+    %ix/load 1, 26, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.4, 4;
+    %load/x1p 8, v0x277bbd0_0, 6;
+    %jmp T_2.5;
+T_2.4 ;
+    %mov 8, 2, 6;
+T_2.5 ;
+; Save base=8 wid=6 in lookaside.
+    %set/v v0x277b9d0_0, 8, 6;
+    %end;
+    .thread T_2;
+    .scope S_0x2750bb0;
+T_3 ;
+    %set/v v0x277c1e0_0, 0, 1;
+    %set/v v0x277c160_0, 0, 32;
+    %delay 1000, 0;
+    %vpi_call 2 14 "$finish";
+    %end;
+    .thread T_3;
+    .scope S_0x2750bb0;
+T_4 ;
+    %delay 10, 0;
+    %load/v 8, v0x277c1e0_0, 1;
+    %inv 8, 1;
+    %set/v v0x277c1e0_0, 8, 1;
+    %jmp T_4;
+    .thread T_4;
+    .scope S_0x2750bb0;
+T_5 ;
+    %wait E_0x277b390;
+    %load/v 8, v0x277c160_0, 32;
+    %mov 40, 0, 1;
+    %addi 8, 4, 33;
+    %set/v v0x277c160_0, 8, 32;
+    %jmp T_5;
+    .thread T_5;
+    .scope S_0x2750bb0;
+T_6 ;
+    %wait E_0x277b010;
+    %vpi_call 2 24 "$display", "time = %d, pc = %h, cmd = %h.", $time, &PV<v0x277c160_0, 2, 6>, v0x277c290_0;
+    %jmp T_6;
+    .thread T_6, $push;
+    .scope S_0x273cdd0;
+T_7 ;
+   %ix/load 1, 0, 0;
+   %ix/load 3, 0, 0;
+   %set/av v0x277c9a0, 0, 32;
+    %end;
+    .thread T_7;
+    .scope S_0x273cdd0;
+T_8 ;
+    %wait E_0x277c410;
+    %load/v 8, v0x277c810_0, 1;
+    %jmp/0  T_8.0, 8;
+    %mov 9, 3, 32;
+    %jmp/1  T_8.2, 8;
+T_8.0 ; End of true expr.
+    %ix/getv 3, v0x277c440_0;
+    %load/av 41, v0x277c9a0, 32;
+    %jmp/0  T_8.1, 8;
+ ; End of false expr.
+    %blend  9, 41, 32; Condition unknown.
+    %jmp  T_8.2;
+T_8.1 ;
+    %mov 9, 41, 32; Return false value
+T_8.2 ;
+    %ix/load 0, 32, 0;
+    %assign/v0 v0x277c620_0, 0, 9;
+    %load/v 8, v0x277c810_0, 1;
+    %jmp/0  T_8.3, 8;
+    %mov 9, 3, 32;
+    %jmp/1  T_8.5, 8;
+T_8.3 ; End of true expr.
+    %ix/getv 3, v0x277c4e0_0;
+    %load/av 41, v0x277c9a0, 32;
+    %jmp/0  T_8.4, 8;
+ ; End of false expr.
+    %blend  9, 41, 32; Condition unknown.
+    %jmp  T_8.5;
+T_8.4 ;
+    %mov 9, 41, 32; Return false value
+T_8.5 ;
+    %ix/load 0, 32, 0;
+    %assign/v0 v0x277c6d0_0, 0, 9;
+    %load/v 8, v0x277c810_0, 1;
+    %jmp/0  T_8.6, 8;
+    %load/v 9, v0x277c770_0, 32;
+    %jmp/1  T_8.8, 8;
+T_8.6 ; End of true expr.
+    %ix/getv 3, v0x277c580_0;
+    %load/av 41, v0x277c9a0, 32;
+    %jmp/0  T_8.7, 8;
+ ; End of false expr.
+    %blend  9, 41, 32; Condition unknown.
+    %jmp  T_8.8;
+T_8.7 ;
+    %mov 9, 41, 32; Return false value
+T_8.8 ;
+    %ix/getv 3, v0x277c580_0;
+    %jmp/1 t_1, 4;
+    %ix/load 0, 32, 0; word width
+    %ix/load 1, 0, 0; part off
+    %assign/av v0x277c9a0, 0, 9;
+t_1 ;
+    %jmp T_8;
+    .thread T_8;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "mips.v";
+    "utils.v";
