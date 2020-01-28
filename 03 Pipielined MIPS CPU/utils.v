@@ -16,7 +16,7 @@ module reg_file(input printWire,
 	RD2 <= A2 ? registers[A2] : 0;
     end     
 
-    always @(posedge clk)
+    always @(negedge clk)
     begin
         registers[A3] <= A3 ? (WE3 ? WD3 : registers[A3]) : 0;
     end     
@@ -64,7 +64,16 @@ module imem (input [5:0] a,
  
 endmodule
 
+//3:1 Mulitplexer with data length of 32 bits
+module mux3 (input [31:0] d0, d1, d2,
+ input[1:0] s,
+ output [31:0] y);
+ 
+ wire [31:0] d_tmp;
+ mux2 mux_tmp(d0,d1,s[0], d_tmp);
+ mux2 mux_fin(d_tmp, d2, s[1], y);
 
+endmodule
 
 //2:1 Mulitplexer with data length of 32 bits
 module mux2 (input [31:0] d0, d1,

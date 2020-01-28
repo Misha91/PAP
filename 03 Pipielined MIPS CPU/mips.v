@@ -10,7 +10,7 @@ module mips_tb;
     $dumpvars;
     clk = 0; 
     PC = 0; 
-    #100 $finish;
+    #250 $finish;
   end  
 
   always #10 clk = ~clk;
@@ -22,270 +22,41 @@ module mips_pipelined(input clk,
 	    input [31:0] PC_init);
 
   reg stallF, stallD, ForwardAD, ForwardBD, FlushE;
-  //reg [31:0] PCBranchD;
-  wire RegWriteD, MemtoRegD, ALUSrcD, RegDstD, BranchD, PCSrcD;
+  reg [1:0] ForwardAE, ForwardBE;
+  //reg [4:0] ;
+  //reg [31:0] ;
+  wire RegWriteD, MemtoRegD, MemWriteE, ALUSrcD, RegDstD, BranchD, PCSrcD, RegWriteM, MemtoRegM, MemWriteM, RegWriteW, MemtoRegW;
   wire [2:0] ALUControlD;
-  wire [4:0] RsD, RtD, RdE;
-  wire[31:0] cmdD, PCPlusFourD, RD1D, RD2D, SignImmD, PCBranchD;
+  wire [4:0] RsD, RtD, RdE, shamtE, WriteRegM, WriteRegW;
+  wire[31:0] cmdD, PCPlusFourD, RD1D, RD2D, SignImmD, PCBranchD, ALUOutM, WriteDataM, ALUOutW, ReadDataW, ResultW;
 
   initial begin
     stallF = 0;
     stallD = 0; 
+    //ResultW = 0;
+    //WriteRegW = 0;
     //PCSrcD = 0;
     //PCBranchD = 0;
+    //RegWriteW = 0;
     ForwardAD = 0;
     ForwardBD = 0;
+    ForwardAE = 0;
+    ForwardBE = 0;
     FlushE = 0;
   end
 
   IF my_IF(clk, stallF, stallD, PCSrcD, PC_init, PCBranchD, cmdD, PCPlusFourD);
-  ID my_ID(clk, ForwardAD, ForwardBD, FlushE, cmdD, PCPlusFourD, RegWriteD, MemtoRegD, ALUSrcD, RegDstD, BranchD, PCSrcD, ALUControlD, RsD, RtD, RdE, RD1D, RD2D, SignImmD, PCBranchD);
+  ID my_ID(clk, ForwardAD, ForwardBD, FlushE, RegWriteW, WriteRegW, cmdD, PCPlusFourD, ResultW, RegWriteD, MemtoRegD, MemWriteE, ALUSrcD, RegDstD, PCSrcD, ALUControlD, RsD, RtD, RdE, shamtE, RD1D, RD2D, SignImmD, PCBranchD);
+  EX my_EX(clk, RegWriteD, MemtoRegD, MemWriteE, ALUSrcD, RegDstD, ForwardAE, ForwardBE, ALUControlD, RsD, RtD, RdE, shamtE, RD1D, RD2D, SignImmD, RegWriteM, MemtoRegM, MemWriteM, WriteRegM, ALUOutM, WriteDataM);
+  MEM my_MEM(clk, RegWriteM, MemtoRegM, MemWriteM, WriteRegM, ALUOutM, WriteDataM, RegWriteW, MemtoRegW, WriteRegW, ALUOutW, ReadDataW);
 
-
-
- 
-  
-  //processor my_ctrl(clk, cmd, PC, newPC, result);
-endmodule
-
-
-module IF(input clk, stallF, stallD, PCSrcD, 
-	  input [31:0] PC_init, PCBranchD,
-	  output [31:0] cmdD, PCPlusFourD);
-
-  wire [31:0] cmd, newPC;
-  reg [31:0] PC, PCplusFour, cmdD, PCPlusFourD;
-
-
-  always @(PC_init) begin
-	PC = PC_init;
-        
-  end
-
+  mux2 write(ALUOutW, ReadDataW, MemtoRegW, ResultW);
 	
-  always @(posedge clk)
-  begin
-    PC = stallF ? PC : newPC;
-    
-    cmdD = PCSrcD ? 0 : (stallD ? cmdD : cmd); 
-    PCPlusFourD = PCSrcD ? 0 : (stallD ? PCPlusFourD : PCplusFour); 
-    //PCplusFour = PC + 4;
-    if (cmdD == 0) $finish(0);
-    //$display("IM: %h %h %h", PC, cmdD, PCplusFour);
-
-  end    
-
-  always @(PC) PCplusFour <= PC + 4;
-
-  imem imem_mod(PC[7:2], cmd);
-  mux2 pc_upd(PCplusFour, PCBranchD, PCSrcD, newPC);
-  //PC_update my_pc_update(PCplusFour, PCBranchD, PCSrcD, newPC);
-
-  //always @(PC) $display("IM: %h %h %h %h", PC, cmdD, PCplusFour, newPC);
 
 endmodule
 
 
 
-
-
-
-module ID(input clk, ForwardAD, ForwardBD, FlushE,
-	  input [31:0] cmd, PCPlusFourD,
-	  output RegWriteE, MemtoRegE, ALUSrcE, RegDstE, BranchE, PCSrcD,
-	  output [2:0] ALUControlD,
-	  output [4:0] RsE, RtE, RdE,
-	  output [31:0] RD1D, RD2D, SignImmD, PCBranchD);
-
-  reg PCSrcD;
-  reg [31:0] PCBranchD;
-
-  reg WE3, regDst, aluSrc, memToReg, memWrite, branch, bne, jal, jr, printWire;
-  reg [4:0] A1, A2, shamt;
-  reg [5:0] Op, funct;
-  //reg [31:0] WD3;
-  wire Zero, PCSrc;
-  wire [4:0] A3, A3_pre;
-  wire [31:0] RD1, RD2, ALUResult, srcB, resultPre, WD3;
-  wire [31:0] SignImm;
-  reg [2:0] ALUControl;
-  
-  reg_file my_reg(printWire, A1, A2, A3, WD3, clk, WE3, RD1, RD2);
-  sign_ext my_sign(cmd[15:0], SignImm);
-
-  always @(cmd) $display("ID %h %h", PCPlusFourD, cmd);
-
-  initial begin
-    PCSrcD = 0;
-    //PCBranchD = 0;
-  end
-
-  always @(posedge clk)
-  begin
-    RegWriteE = WE3;
-    MemtoRegE = memToReg;
-    ALUSrcE = aluSrc;
-    RegDstE = regDst;
-    BranchE = branch;
-    RsE = A1;
-    RtE = A2;
-    RdE = = cmd[15:11];
-  end
-
-  always @(*)
-  begin
-    funct = cmd[5:0];
-    A1 = cmd[25:21];
-    A2 = cmd[20:16];
-    shamt = cmd[10:6];
-    Op = cmd[31:26];
-    ALUControl <= 3'bzzz;
-    aluSrc <= 1'bz;
-    regDst <= 1'bz;
-    memToReg <= 1'bz;
-    WE3 <= 1'bz;
-    branch <= 0;
-    bne <= 0;
-    jal <= 0;
-    jr <= 0;
-    memWrite <= 0;
-    printWire <= 0;
-    PCBranchD <= PCPlusFourD + SignImm * 4;
-
- case (Op)
-    
-    6'b000000 : begin
-      case (funct)
-        6'b000000: begin
-	  $display("cmd = %h, Op=%b, f=%b - SLL", cmd, Op, funct);
-	  ALUControl <= 3'b100;
-	  aluSrc <= 0;
-	  regDst <= 1;
-	  memToReg <= 0;
-	  WE3 <= 1;
-	  end 
- 
-        6'b000010: begin
-	  $display("cmd = %h, Op=%b, f=%b - SRL", cmd, Op, funct);
-	  ALUControl <= 3'b101;
-	  aluSrc <= 0;
-	  regDst <= 1;
-	  memToReg <= 0;
-	  WE3 <= 1;
-	  end 
-
-        6'b001000: begin
-	  $display("cmd = %h, Op=%b, f=%b - JR", cmd, Op, funct);
-	  jr <= 1;
-	  end 
-
-        6'b100000: begin
-	  $display("cmd = %h, Op=%b, f=%b A1=%h, A2=%h - ADD", cmd, Op, funct, A1, A2);
-	  ALUControl <= 3'b010;
-   	  aluSrc <= 0;
-    	  regDst <= 1;
-    	  memToReg <= 0;
-    	  WE3 <= 1; 
-	  end 
-
-        6'b100010: begin
-	  $display("cmd = %h, Op=%b, f=%b A1=%h, A2=%h - SUB", cmd, Op, funct, A1, A2);
-	  ALUControl <= 3'b110;
-   	  aluSrc <= 0;
-    	  regDst <= 1;
-    	  memToReg <= 0;
-    	  WE3 <= 1;    
-	  end 
-
-        6'b100100: begin
-	  $display("cmd = %h, Op=%b, f=%b - AND", cmd, Op, funct);
-	  ALUControl <= 3'b000;
-   	  aluSrc <= 0;
-    	  regDst <= 1;
-    	  memToReg <= 0;
-    	  WE3 <= 1;    
-	  end 
-
-        6'b100101: begin
-	  $display("cmd = %h, Op=%b, f=%b - OR", cmd, Op, funct);
-	  ALUControl <= 3'b001;
-   	  aluSrc <= 0;
-    	  regDst <= 1;
-    	  memToReg <= 0;
-    	  WE3 <= 1;    
-	  end 
-
-        6'b101010: begin
-	  $display("cmd = %h, Op=%b, f=%b A1=%h, A2=%h - SLT", cmd, Op, funct, A1, A2);
-	  ALUControl <= 3'b111;
-   	  aluSrc <= 0;
-    	  regDst <= 1;
-    	  memToReg <= 0;
-    	  WE3 <= 1;
-	  end 
-
- 
-	default : $display("cmd = %b, UNSUPPORTED OPCODE", cmd);   
-      endcase
-    end
-
-    6'b000011 : begin
-      $display("cmd = %h, Op=%b, f=%b - JAL", cmd, Op, funct);
-      jal <= 1;
-      WE3 <= 1;
-    end
-    
-    6'b000100 : begin
-      $display("cmd = %h, Op=%b, f=%b A1=%h, A2=%h - BEQ", cmd, Op, funct, A1, A2);
-      ALUControl <= 3'b110;
-      aluSrc <= 0;
-      branch <= 1;
-    end
-
-    6'b000101 : begin
-      $display("cmd = %h, Op=%b, f=%b A1=%h, A2=%h - BNE", cmd, Op, funct, A1, A2);
-      ALUControl <= 3'b110;
-      aluSrc <= 0;
-      branch <= 1;
-      bne <= 1;
-    end
-    
-    6'b001000 : begin
-      $display("cmd = %h, Op=%b, f=%d, A1=%h, A2=%h - ADDI", cmd, Op, funct, A1, A2);
-      ALUControl <= 3'b010;
-      aluSrc <= 1;
-      regDst <= 0;
-      memToReg <= 0;
-      WE3 <= 1;
-    end
-
-    6'b100011 : begin
-      $display("cmd = %h, Op=%b, f=%b - LW", cmd, Op, funct);
-      aluSrc <= 1;
-      ALUControl <= 3'b010;
-      memToReg <= 1;
-      regDst <= 0;
-      WE3 <= 1;
-    end
-
-    6'b101011 : begin
-      $display("cmd = %h, Op=%b, f=%b - SW", cmd, Op, funct);
-      aluSrc <= 1;
-      ALUControl <= 3'b010;
-      memWrite <= 1;
-    end
-
-    default :   
-      begin
-      //printWire = 1;
-      //$finish(2); 
-      end
-  endcase
-  end
-
-
-
-endmodule
 
 /*
 
@@ -294,6 +65,9 @@ requires clk and initial PC to start. Updates
 PC on every clk.
 
 */
+
+/*
+
 module mips(input clk,
 	    input [31:0] PC_init);
 
@@ -310,6 +84,8 @@ module mips(input clk,
   end      
   processor my_ctrl(clk, cmd, PC, newPC, result);
 endmodule
+*/
+
 
 /*
 
@@ -318,7 +94,8 @@ updates register file and data memory. It has
 $display statement for debug easiness.
  
 */
-    
+
+/*
 module processor(input clk,
 	    	input [31:0] cmd, PC, 
             	output [31:0] newPC, 
@@ -503,6 +280,6 @@ module processor(input clk,
   end
 
 endmodule
-
+*/
 
 

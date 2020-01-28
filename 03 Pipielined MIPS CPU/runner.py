@@ -61,8 +61,8 @@ def callTest():
                totalNum = 0
 
                for i in range(len(resExp)):
-                   print("R" + str(i) + ": " + str(resExp[i].lstrip().rstrip()) \
-                   + ", expected: " + str(resLine[i].lstrip().rstrip()))
+                   print("R" + str(i) + ": " + str(resLine[i].lstrip().rstrip())) \
+                   + ", expected: " + str(resExp[i].lstrip().rstrip())
                    if resExp[i].lstrip().rstrip() == resLine[i].lstrip().rstrip():
                        passNum += 1
                    else:
