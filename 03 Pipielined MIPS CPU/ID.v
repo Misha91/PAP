@@ -83,13 +83,7 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
     jr <= 0;
     memWrite <= 0;
     PCSrcD <= 0;
-    //printWire <= 0;
 
-    //PCSrcD <= branch & (RD1D == RD2D ? 1 : 0);
-	
-    //if (cmd == 0)
-    //printWire = 1;
-    
 
  case (Op)
     
@@ -184,7 +178,7 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
     
     6'b000100 : begin
       $display("cmd = %h, Op=%b, f=%b A1=%h, A2=%h - BEQ", cmd, Op, funct, A1, A2);
-      $display("BEQ - %d %d %h %h %h %h %h %h", ForwardAD, ForwardBD, RD1, RD1D, RD2, RD2D, PCPlusFourD, SignImm);
+      //$display("BEQ - %d %d %h %h %h %h %h %h", ForwardAD, ForwardBD, RD1, RD1D, RD2, RD2D, PCPlusFourD, SignImm);
       ALUControl <= 3'b110;
       aluSrc <= 0;
       branch <= 1;
@@ -197,7 +191,7 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
 
     6'b000101 : begin
       $display("cmd = %h, Op=%b, f=%b A1=%h, A2=%h - BNE", cmd, Op, funct, A1, A2);
-      $display("BNE - %d %d %h %h %h %h %h %h", ForwardAD, ForwardBD, RD1, RD1D, RD2, RD2D, PCPlusFourD, SignImm);
+      //$display("BNE - %d %d %h %h %h %h %h %h", ForwardAD, ForwardBD, RD1, RD1D, RD2, RD2D, PCPlusFourD, SignImm);
       ALUControl <= 3'b110;
       aluSrc <= 0;
       branch <= 1;

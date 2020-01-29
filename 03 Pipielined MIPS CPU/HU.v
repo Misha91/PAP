@@ -47,12 +47,12 @@ module HU(input clk, BranchD, MemToRegE, RegWriteE, MemToRegM, RegWriteM, RegWri
     if (!((BranchD === 1'bX) || (RegWriteE=== 1'bX) || (WriteRegE=== 5'bX) || (RtD=== 5'bX) || (RsD=== 5'bX) ))
       begin
       branchstall <= (BranchD && RegWriteE && (WriteRegE == RsD || WriteRegE == RtD)) ;
-      $display("This");
+      //$display("This");
       end
     else if (!((BranchD === 1'bX) || (MemToRegM=== 1'bZ) || (WriteRegM=== 5'bX) || (RtD=== 5'bX) || (RsD=== 5'bX) ))
       begin
       branchstall <= (BranchD && MemToRegM && (WriteRegM == RsD || WriteRegM == RtD));
-      $display("That");
+      //$display("That");
       end
       
     StallF <= lwstall | branchstall;
@@ -62,7 +62,7 @@ module HU(input clk, BranchD, MemToRegE, RegWriteE, MemToRegM, RegWriteM, RegWri
 
   end
 
-  always @(negedge clk)
-    $display("HU: %d %d %d %d %d %d %h %h", branchstall, BranchD, RegWriteE, MemToRegM, WriteRegE, WriteRegM, RsD, RtD );
+  //always @(negedge clk)
+  //  $display("HU: %d %d %d %d %d %d %h %h", branchstall, BranchD, RegWriteE, MemToRegM, WriteRegE, WriteRegM, RsD, RtD );
 
 endmodule
