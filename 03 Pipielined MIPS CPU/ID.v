@@ -46,6 +46,7 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
     RD1D <= FlushE ? 0 : RD1;
     RD2D <= FlushE ? 0 : RD2;
     SignImmD = FlushE ? 0 : SignImm;
+    //$display("ID 
   end
 
   always @(*)

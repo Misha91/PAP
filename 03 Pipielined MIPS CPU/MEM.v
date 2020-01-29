@@ -21,6 +21,7 @@ module MEM(input clk, RegWriteM, MemtoRegM, MemWriteM,
     ReadDataW = RD;
     ALUOutW = ALUOutM;
     WriteRegW = WriteRegM;
+    $display("MEM: %b %b %h %h %h",RegWriteM, MemWriteM, ALUOutM, WriteDataM, RD);
     end
 
 endmodule

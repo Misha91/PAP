@@ -51,7 +51,7 @@ module mips_pipelined(input clk,
 
   end
 
-  HU my_HU(BranchD, MemtoRegE, RegWriteE, MemToRegM, RegWriteM, RegWriteW, RsD, RtD, RsE, RtE, WriteRegE, WriteRegM, WriteRegW, StallF, StallD, ForwardAD, ForwardBD, FlushE, ForwardAE, ForwardBE);
+  HU my_HU(clk, BranchD, MemtoRegE, RegWriteE, MemToRegM, RegWriteM, RegWriteW, RsD, RtD, RsE, RtE, WriteRegE, WriteRegM, WriteRegW, StallF, StallD, ForwardAD, ForwardBD, FlushE, ForwardAE, ForwardBE);
   IF my_IF(clk, StallF, StallD, PCSrcD, PC_init, PCBranchD, cmdD, PCPlusFourD);
   ID my_ID(clk, ForwardAD, ForwardBD, FlushE, RegWriteW, WriteRegW, cmdD, PCPlusFourD, ResultW, RegWriteE, MemtoRegE, MemWriteE, ALUSrcD, RegDstD, BranchD, PCSrcD, ALUControlD, RsD, RtD, RsE, RtE, RdE, shamtE, RD1D, RD2D, SignImmD, PCBranchD);
   EX my_EX(clk, RegWriteE, MemtoRegE, MemWriteE, ALUSrcD, RegDstD, ForwardAE, ForwardBE, ALUControlD, RsE, RtE, RdE, shamtE, RD1D, RD2D, SignImmD, ResultW, RegWriteM, MemtoRegM, MemWriteM, WriteRegE, WriteRegM, ALUOutM, WriteDataM);
