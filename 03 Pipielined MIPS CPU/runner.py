@@ -110,6 +110,7 @@ def callGcd():
     res = res.readlines()
 
     resLine = res[-1]
+    #print(resLine)
     resLine = (resLine.split(",")[3]).lstrip()
     print("The result of GCD for " + str(A) + " and " + str(B) + " is " + str(resLine))
 

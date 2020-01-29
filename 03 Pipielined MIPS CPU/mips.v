@@ -10,7 +10,7 @@ module mips_tb;
     $dumpvars;
     clk = 0; 
     PC = 0; 
-    //#500 $finish;
+    //#900 $finish;
   end  
 
   always #10 clk = ~clk;
