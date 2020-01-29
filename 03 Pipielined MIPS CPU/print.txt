@@ -1,4 +1,4 @@
-"IM pos clk: %h %h %h %h", PC, stallF, stallD, PCSrcD
+"IM pos clk: %h %h %h %h %h %h %h", PC, stallF, stallD, PCSrcD, PCBranchD, cmdD, PCPlusFourD
 
 "IM: %h %h %h %h", PC, cmdD, PCplusFour, newPC
 

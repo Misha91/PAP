@@ -1,2 +1,2 @@
-#define srcA 15
-#define srcB 5
+#define srcA 1024
+#define srcB 512

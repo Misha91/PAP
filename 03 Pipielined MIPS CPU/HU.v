@@ -34,12 +34,8 @@ module HU(input clk, BranchD, MemToRegE, RegWriteE, MemToRegM, RegWriteM, RegWri
     else ForwardBE <= 2'b00;
 
     if (!((RsD === 5'bX) || (RtE=== 5'bX) || (RtD=== 5'bX) || (MemToRegE=== 1'bX) || (MemToRegE=== 1'bZ)))
-    begin
       lwstall <= ((RsD == RtE) || (RtD == RtE)) && MemToRegE ? 1 : 0;
-
-      //$display("X check: %b %b %b %b", RsD, RtE, RtD, MemToRegE);
-    end
-
+    
     if (!((WriteRegM === 5'bX)  || (RegWriteM=== 1'bX) ))
     begin
       if (!((RsD === 5'bX) ))
@@ -47,15 +43,26 @@ module HU(input clk, BranchD, MemToRegE, RegWriteE, MemToRegM, RegWriteM, RegWri
       if (!((RtD === 5'bX) ))
         ForwardBD <= ((RtD != 0) && (RtD == WriteRegM) && RegWriteM )? 1 : 0;
     end
-
-    if (!((BranchD === 1'bX) || (RegWriteE=== 1'bX) || (WriteRegE=== 5'bX) || (RtD=== 5'bX) || (RsD=== 5'bX) || (WriteRegM=== 5'bX) || (MemToRegM=== 1'bZ)))
-      branchstall <= (BranchD && RegWriteE && (WriteRegE == RsD || WriteRegE == RtD)) || (BranchD && MemToRegM && (WriteRegM == RsD || WriteRegM == RtD));
-
-      StallF <= lwstall || branchstall ? 1 : 0;
-      StallD <= lwstall || branchstall ? 1 : 0;
-      FlushE <= lwstall || branchstall ? 1 : 0;
+    
+    if (!((BranchD === 1'bX) || (RegWriteE=== 1'bX) || (WriteRegE=== 5'bX) || (RtD=== 5'bX) || (RsD=== 5'bX) ))
+      begin
+      branchstall <= (BranchD && RegWriteE && (WriteRegE == RsD || WriteRegE == RtD)) ;
+      $display("This");
+      end
+    else if (!((BranchD === 1'bX) || (MemToRegM=== 1'bZ) || (WriteRegM=== 5'bX) || (RtD=== 5'bX) || (RsD=== 5'bX) ))
+      begin
+      branchstall <= (BranchD && MemToRegM && (WriteRegM == RsD || WriteRegM == RtD));
+      $display("That");
+      end
+      
+    StallF <= lwstall | branchstall;
+    StallD <= lwstall | branchstall;
+    FlushE <= lwstall | branchstall;
     
 
   end
+
+  always @(negedge clk)
+    $display("HU: %d %d %d %d %d %d %h %h", branchstall, BranchD, RegWriteE, MemToRegM, WriteRegE, WriteRegM, RsD, RtD );
 
 endmodule

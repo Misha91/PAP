@@ -25,6 +25,7 @@ module reg_file(input printWire,
 
   //always @(posedge clk) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
   always @(posedge printWire) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
+  //always @(*) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
   
 endmodule 
 
