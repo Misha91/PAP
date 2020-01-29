@@ -54,7 +54,7 @@ module mips_pipelined(input clk,
   HU my_HU(BranchD, MemtoRegE, RegWriteE, MemToRegM, RegWriteM, RegWriteW, RsD, RtD, RsE, RtE, WriteRegE, WriteRegM, WriteRegW, StallF, StallD, ForwardAD, ForwardBD, FlushE, ForwardAE, ForwardBE);
   IF my_IF(clk, StallF, StallD, PCSrcD, PC_init, PCBranchD, cmdD, PCPlusFourD);
   ID my_ID(clk, ForwardAD, ForwardBD, FlushE, RegWriteW, WriteRegW, cmdD, PCPlusFourD, ResultW, RegWriteE, MemtoRegE, MemWriteE, ALUSrcD, RegDstD, BranchD, PCSrcD, ALUControlD, RsD, RtD, RsE, RtE, RdE, shamtE, RD1D, RD2D, SignImmD, PCBranchD);
-  EX my_EX(clk, RegWriteE, MemtoRegE, MemWriteE, ALUSrcD, RegDstD, ForwardAE, ForwardBE, ALUControlD, RsE, RtE, RdE, shamtE, RD1D, RD2D, SignImmD, RegWriteM, MemtoRegM, MemWriteM, WriteRegE, WriteRegM, ALUOutM, WriteDataM);
+  EX my_EX(clk, RegWriteE, MemtoRegE, MemWriteE, ALUSrcD, RegDstD, ForwardAE, ForwardBE, ALUControlD, RsE, RtE, RdE, shamtE, RD1D, RD2D, SignImmD, ResultW, RegWriteM, MemtoRegM, MemWriteM, WriteRegE, WriteRegM, ALUOutM, WriteDataM);
   MEM my_MEM(clk, RegWriteM, MemtoRegM, MemWriteM, WriteRegM, ALUOutM, WriteDataM, RegWriteW, MemtoRegW, WriteRegW, ALUOutW, ReadDataW);
 
   mux2 write(ALUOutW, ReadDataW, MemtoRegW, ResultW);
