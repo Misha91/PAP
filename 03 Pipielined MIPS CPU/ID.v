@@ -2,28 +2,29 @@
 
 module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
 	  input [4:0] WriteRegW,
-	  input [31:0] cmd, PCPlusFourD, ResultW,
+	  input [31:0] cmd, PCPlusFourD, ResultW, ALUOutM,
 	  output RegWriteE, MemtoRegE, MemWriteE, ALUSrcE, RegDstE, branch, PCSrcD,
 	  output [2:0] ALUControlE,
 	  output [4:0] A1, A2, RsE, RtE, RdE, shamtE,
-	  output [31:0] RD1D, RD2D, SignImmD, PCBranchD);
+	  output [31:0] RD1E, RD2E, SignImmD, PCBranchD);
 
-  reg RegWriteE, MemtoRegE, MemWriteE, ALUSrcE, RegDstE, PCSrcD;
-  reg [31:0] PCBranchD, RD1D, RD2D, SignImmD;
+  reg RegWriteE, MemtoRegE, MemWriteE, ALUSrcE, RegDstE, PCSrcD, EqualID;
+  reg [31:0] PCBranchD, RD1E, RD2E, SignImmD;
 
   reg WE3, regDst, aluSrc, memToReg, memWrite, branch, bne, jal, jr, printWire;
-  reg [4:0] A1, A2, shamt, shamtE, RsE, RtE, RdE;
+  reg [4:0] A1, A2, RdD, shamt, shamtE, RsE, RtE, RdE;
   reg [5:0] Op, funct;
   //reg [31:0] WD3;
   wire Zero, PCSrc;
   wire [4:0] A3, A3_pre;
-  wire [31:0] RD1, RD2, ALUResult, srcB, resultPre, WD3;
+  wire [31:0] RD1, RD2, RD1D, RD2D, ALUResult, srcB, resultPre, WD3;
   wire [31:0] SignImm;
   reg [2:0] ALUControl, ALUControlE;
   
   reg_file my_reg(printWire, A1, A2, WriteRegW, ResultW, clk, RegWriteW, RD1, RD2);
   sign_ext my_sign(cmd[15:0], SignImm);
-
+  mux2 rd1_mux(RD1, ALUOutM, ForwardAD, RD1D);
+  mux2 rd2_mux(RD2, ALUOutM, ForwardBD, RD2D);
   //always @(cmd) $display("ID %h %h", PCPlusFourD, cmd);
 
   initial begin
@@ -41,10 +42,10 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
     ALUControlE <= FlushE ? 0 : ALUControl;
     RsE <= FlushE ? 0 : A1;
     RtE <= FlushE ? 0 : A2;
-    RdE <= FlushE ? 0 : cmd[15:11];
+    RdE <= FlushE ? 0 : RdD;
     shamtE <= FlushE ? 0 : shamt; 
-    RD1D <= FlushE ? 0 : RD1;
-    RD2D <= FlushE ? 0 : RD2;
+    RD1E <= FlushE ? 0 : RD1D;
+    RD2E <= FlushE ? 0 : RD2D;
     SignImmD = FlushE ? 0 : SignImm;
     //$display("ID 
   end
@@ -56,6 +57,7 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
     A2 = cmd[20:16];
     shamt = cmd[10:6];
     Op = cmd[31:26];
+    RdD = cmd[15:11];
     ALUControl <= 3'bzzz;
     aluSrc <= 1'bz;
     regDst <= 1'bz;
@@ -67,8 +69,9 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
     jr <= 0;
     memWrite <= 0;
     printWire <= 0;
-    PCBranchD <= PCPlusFourD + SignImm * 4;
-
+    PCBranchD <= jal ? SignImm * 4 : PCPlusFourD + SignImm * 4;
+    PCSrcD <= branch & (RD1D == RD2D ? 1 : 0);
+	
     if (cmd == 0)
       printWire = 1;
 
@@ -152,7 +155,10 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
     6'b000011 : begin
       $display("cmd = %h, Op=%b, f=%b - JAL", cmd, Op, funct);
       jal <= 1;
-      WE3 <= 1;
+      $display("JAL OPERAND: %h %h %h", SignImm, PCPlusFourD, PCBranchD);
+      branch <= 1;
+      //PCSrcD <= 1;
+      //WE3 <= 1;
     end
     
     6'b000100 : begin

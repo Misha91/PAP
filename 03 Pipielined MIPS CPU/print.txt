@@ -1,0 +1,10 @@
+"IM pos clk: %h %h %h %h", PC, stallF, stallD, PCSrcD
+
+"IM: %h %h %h %h", PC, cmdD, PCplusFour, newPC
+
+"JAL OPERAND: %h %h %h", SignImm, PCPlusFourD, PCBranchD
+
+"EX: %b %h %h %h %h %h %b %h %b %h %h %h", 
+ForwardBE, RD1E, RD2E, WriteDataE, RtE, RdE, RegDstE, WriteRegE, ALUControlE, srcAE, srcBE, ALUOutE
+
+"MEM: %b %b %h %h %h",RegWriteM, MemWriteM, ALUOutM, WriteDataM, RD

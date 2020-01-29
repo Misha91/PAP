@@ -10,6 +10,8 @@ module reg_file(input printWire,
 
     reg [31:0] registers [31:0];
 
+    initial registers[0] = 0;
+
     always @(*)
     begin
         RD1 <= A1 ? registers[A1] : 0;
