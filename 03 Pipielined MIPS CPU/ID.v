@@ -3,9 +3,9 @@
 module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
 	  input [4:0] WriteRegW,
 	  input [31:0] cmd, PCPlusFourD, ResultW,
-	  output RegWriteE, MemtoRegE, MemWriteE, ALUSrcE, RegDstE, PCSrcD,
+	  output RegWriteE, MemtoRegE, MemWriteE, ALUSrcE, RegDstE, branch, PCSrcD,
 	  output [2:0] ALUControlE,
-	  output [4:0] RsE, RtE, RdE, shamtE,
+	  output [4:0] A1, A2, RsE, RtE, RdE, shamtE,
 	  output [31:0] RD1D, RD2D, SignImmD, PCBranchD);
 
   reg RegWriteE, MemtoRegE, MemWriteE, ALUSrcE, RegDstE, PCSrcD;
@@ -24,7 +24,7 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
   reg_file my_reg(printWire, A1, A2, WriteRegW, ResultW, clk, RegWriteW, RD1, RD2);
   sign_ext my_sign(cmd[15:0], SignImm);
 
-  always @(cmd) $display("ID %h %h", PCPlusFourD, cmd);
+  //always @(cmd) $display("ID %h %h", PCPlusFourD, cmd);
 
   initial begin
     PCSrcD = 0;

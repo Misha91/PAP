@@ -6,7 +6,7 @@ module EX(input clk, RegWriteE, MemtoRegE, MemWriteE, ALUSrcE, RegDstE,
 	  input [4:0] RsE, RtE, RdE, shamtE,
 	  input [31:0] RD1E, RD2E, SignImmE,
 	  output RegWriteM, MemtoRegM, MemWriteM,
-	  output [4:0] WriteRegM,
+	  output [4:0] WriteRegE, WriteRegM,
 	  output [31:0] ALUOutM, WriteDataM);
 
 

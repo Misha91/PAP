@@ -10,7 +10,7 @@ module mips_tb;
     $dumpvars;
     clk = 0; 
     PC = 0; 
-    #250 $finish;
+    #450 $finish;
   end  
 
   always #10 clk = ~clk;
@@ -21,36 +21,45 @@ endmodule
 module mips_pipelined(input clk,
 	    input [31:0] PC_init);
 
-  reg stallF, stallD, ForwardAD, ForwardBD, FlushE;
-  reg [1:0] ForwardAE, ForwardBE;
+  //reg StallF, StallD, ForwardAD, ForwardBD, FlushE;
+  //reg [1:0] ForwardAE, ForwardBE;
+  wire StallF, StallD, ForwardAD, ForwardBD, FlushE;
+  wire [1:0] ForwardAE, ForwardBE;
   //reg [4:0] ;
   //reg [31:0] ;
-  wire RegWriteD, MemtoRegD, MemWriteE, ALUSrcD, RegDstD, BranchD, PCSrcD, RegWriteM, MemtoRegM, MemWriteM, RegWriteW, MemtoRegW;
+  wire RegWriteE, MemtoRegE, MemWriteE, ALUSrcD, RegDstD, BranchD, PCSrcD, RegWriteM, MemtoRegM, MemWriteM, RegWriteW, MemtoRegW;
   wire [2:0] ALUControlD;
-  wire [4:0] RsD, RtD, RdE, shamtE, WriteRegM, WriteRegW;
+  wire [4:0] RsD, RtD, RsE, RtE, RdE, shamtE, WriteRegM, WriteRegW, WriteRegE;
   wire[31:0] cmdD, PCPlusFourD, RD1D, RD2D, SignImmD, PCBranchD, ALUOutM, WriteDataM, ALUOutW, ReadDataW, ResultW;
 
   initial begin
-    stallF = 0;
-    stallD = 0; 
+    //StallF = 0;
+    //StallD = 0; 
+    //ForwardAD = 0;
+    //ForwardBD = 0;
+    //ForwardAE = 0;
+    //ForwardBE = 0;
+    //FlushE = 0;
+
+
     //ResultW = 0;
     //WriteRegW = 0;
     //PCSrcD = 0;
     //PCBranchD = 0;
     //RegWriteW = 0;
-    ForwardAD = 0;
-    ForwardBD = 0;
-    ForwardAE = 0;
-    ForwardBE = 0;
-    FlushE = 0;
+
+
   end
 
-  IF my_IF(clk, stallF, stallD, PCSrcD, PC_init, PCBranchD, cmdD, PCPlusFourD);
-  ID my_ID(clk, ForwardAD, ForwardBD, FlushE, RegWriteW, WriteRegW, cmdD, PCPlusFourD, ResultW, RegWriteD, MemtoRegD, MemWriteE, ALUSrcD, RegDstD, PCSrcD, ALUControlD, RsD, RtD, RdE, shamtE, RD1D, RD2D, SignImmD, PCBranchD);
-  EX my_EX(clk, RegWriteD, MemtoRegD, MemWriteE, ALUSrcD, RegDstD, ForwardAE, ForwardBE, ALUControlD, RsD, RtD, RdE, shamtE, RD1D, RD2D, SignImmD, RegWriteM, MemtoRegM, MemWriteM, WriteRegM, ALUOutM, WriteDataM);
+  HU my_HU(BranchD, MemtoRegE, RegWriteE, MemToRegM, RegWriteM, RegWriteW, RsD, RtD, RsE, RtE, WriteRegE, WriteRegM, WriteRegW, StallF, StallD, ForwardAD, ForwardBD, FlushE, ForwardAE, ForwardBE);
+  IF my_IF(clk, StallF, StallD, PCSrcD, PC_init, PCBranchD, cmdD, PCPlusFourD);
+  ID my_ID(clk, ForwardAD, ForwardBD, FlushE, RegWriteW, WriteRegW, cmdD, PCPlusFourD, ResultW, RegWriteE, MemtoRegE, MemWriteE, ALUSrcD, RegDstD, BranchD, PCSrcD, ALUControlD, RsD, RtD, RsE, RtE, RdE, shamtE, RD1D, RD2D, SignImmD, PCBranchD);
+  EX my_EX(clk, RegWriteE, MemtoRegE, MemWriteE, ALUSrcD, RegDstD, ForwardAE, ForwardBE, ALUControlD, RsE, RtE, RdE, shamtE, RD1D, RD2D, SignImmD, RegWriteM, MemtoRegM, MemWriteM, WriteRegE, WriteRegM, ALUOutM, WriteDataM);
   MEM my_MEM(clk, RegWriteM, MemtoRegM, MemWriteM, WriteRegM, ALUOutM, WriteDataM, RegWriteW, MemtoRegW, WriteRegW, ALUOutW, ReadDataW);
 
   mux2 write(ALUOutW, ReadDataW, MemtoRegW, ResultW);
+
+  
 	
 
 endmodule

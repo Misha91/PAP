@@ -20,7 +20,7 @@ module IF(input clk, stallF, stallD, PCSrcD,
     PCPlusFourD = PCSrcD ? 0 : (stallD ? PCPlusFourD : PCplusFour); 
     //PCplusFour = PC + 4;
     //if (cmdD == 0) $finish(0);
-    //$display("IM: %h %h %h", PC, cmdD, PCplusFour);
+    $display("IM pos clk: %h %h %h %h", PC, stallF, stallD, PCSrcD);
 
   end    
 
@@ -30,7 +30,7 @@ module IF(input clk, stallF, stallD, PCSrcD,
   mux2 pc_upd(PCplusFour, PCBranchD, PCSrcD, newPC);
   //PC_update my_pc_update(PCplusFour, PCBranchD, PCSrcD, newPC);
 
-  //always @(PC) $display("IM: %h %h %h %h", PC, cmdD, PCplusFour, newPC);
+  always @(PC) $display("IM: %h %h %h %h", PC, cmdD, PCplusFour, newPC);
 
 endmodule
 
