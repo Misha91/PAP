@@ -12,7 +12,7 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
   reg [31:0] PCBranchD, RD1E, RD2E, SignImmD;
 
   reg WE3, regDst, aluSrc, memToReg, memWrite, branch, bne, jal, jr, printWire;
-  reg [4:0] A1, A2, RdD, shamt, shamtE, RsE, RtE, RdE;
+  reg [4:0] A1, A2, RdD, shamt, shamtE, RsE, RtE, RdE, weAreFinished;
   reg [5:0] Op, funct;
   //reg [31:0] WD3;
   wire Zero, PCSrc;
@@ -29,7 +29,7 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
 
   initial begin
     PCSrcD = 0;
-    //PCBranchD = 0;
+    weAreFinished = 0;
   end
 
   always @(posedge clk)
@@ -47,6 +47,15 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
     RD1E <= FlushE ? 0 : RD1D;
     RD2E <= FlushE ? 0 : RD2D;
     SignImmD = FlushE ? 0 : SignImm;
+  
+    if (cmd === 32'bX) weAreFinished <= weAreFinished + 1;
+    else weAreFinished = 0;
+    $display("UNKNOWN COMMAND %h", weAreFinished);
+
+    if (weAreFinished == 5) begin
+       printWire = 1;
+       $finish;
+    end
     //$display("ID 
   end
 
@@ -155,10 +164,10 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
     6'b000011 : begin
       $display("cmd = %h, Op=%b, f=%b - JAL", cmd, Op, funct);
       jal <= 1;
-      $display("JAL OPERAND: %h %h %h", SignImm, PCPlusFourD, PCBranchD);
-      branch <= 1;
+      //$display("JAL OPERAND: %h %h %h", SignImm, PCPlusFourD, PCBranchD);
+      //branch <= 1;
       //PCSrcD <= 1;
-      //WE3 <= 1;
+      WE3 <= 1;
     end
     
     6'b000100 : begin
@@ -203,7 +212,7 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
 
     default :
       begin
-      
+
       //$finish(2); 
       end
   endcase

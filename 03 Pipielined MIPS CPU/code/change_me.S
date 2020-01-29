@@ -44,13 +44,10 @@
 start:
 _start:
 	addi     $1, $0, 5
-	sw	 $1, 0($0)
-	lw	 $2, 0($0)
-        addi     $3, $2, 5
-        add      $5, $2, $1
-        addi     $4, $0, 15
-
-
-
+	addi     $2, $0, 10
+	or	 $3, $1, $2
+	and	 $4, $1, $2
+	and	 $0, $1, $2
+        or       $5, $4, $1
 nop
 .end start

@@ -23,8 +23,8 @@ module reg_file(input printWire,
         registers[A3] <= A3 ? (WE3 ? WD3 : registers[A3]) : 0;
     end     
 
-  always @(posedge clk) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
-  //always @(posedge printWire) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
+  //always @(posedge clk) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
+  always @(posedge printWire) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
   
 endmodule 
 
