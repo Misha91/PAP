@@ -35,7 +35,7 @@ module EX(input clk, RegWriteE, MemtoRegE, MemWriteE, ALUSrcE, RegDstE,
     ALUOutM <= ALUOutE;
     WriteRegM <= WriteRegE;
     WriteDataM <= WriteDataE;
-    $display("EX: %b %h %h %h %h %h %b %h %b %h %h %h", ForwardBE, RD1E, RD2E, WriteDataE, RtE, RdE, RegDstE, WriteRegE, ALUControlE, srcAE, srcBE, ALUOutE);
+    //$display("EX: %b %h %h %h %h %h %b %h %b %h %h %h", ForwardBE, RD1E, RD2E, WriteDataE, RtE, RdE, RegDstE, WriteRegE, ALUControlE, srcAE, srcBE, ALUOutE);
   end
 
 
