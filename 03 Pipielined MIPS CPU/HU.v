@@ -49,7 +49,7 @@ module HU(input clk, BranchD, MemToRegE, RegWriteE, MemToRegM, RegWriteM, RegWri
       branchstall <= (BranchD && RegWriteE && (WriteRegE == RsD || WriteRegE == RtD)) ;
       $display("This");
       end
-    else if (!((BranchD === 1'bX) || (MemToRegM=== 1'bZ) || (WriteRegM=== 5'bX) || (RtD=== 5'bX) || (RsD=== 5'bX) ))
+    if (!((BranchD === 1'bX) || (MemToRegM=== 1'bZ) || (WriteRegM=== 5'bX) || (RtD=== 5'bX) || (RsD=== 5'bX) ))
       begin
       branchstall <= (BranchD && MemToRegM && (WriteRegM == RsD || WriteRegM == RtD));
       $display("That");

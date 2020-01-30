@@ -23,8 +23,7 @@ module reg_file(input printWire,
         registers[A3] <= A3 ? (WE3 ? WD3 : registers[A3]) : 0;
     end     
 
-  //always @(posedge clk) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
-  always @(posedge printWire) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
+    always @(posedge printWire) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
   //always @(*) $display( "%d,%d,%d,%d,%d,%d", registers[0],registers[1],registers[2],registers[3],registers[4],registers[5]);
   
 endmodule 
@@ -98,28 +97,3 @@ module mux2_5 (input [4:0] d0, d1,
 endmodule
 
 
-
-
-// Module for PC update. If command type is jr,
-// it jumps on adress present in srcA. If command
-// is jal it jumps on label. Increments PC by 4
-// otherwise.
-
-module pc_update (input [31:0] PC, addr_w_offset, srcA,
- input PCSrc, jal, jr,
- output [31:0] newPC);
-
- assign newPC = jr ? srcA : (jal ? addr_w_offset*4 : (PCSrc ? PC + 4 + (addr_w_offset*4): PC + 4));
-endmodule
-
-
-
-
-//Helper module for PC source select
-
-module m_and (input x, y, bne,
- output z);
-
- assign z = x & (bne ? ~y : y);
-
-endmodule

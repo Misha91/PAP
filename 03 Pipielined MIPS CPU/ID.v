@@ -28,7 +28,7 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
   mux2 wd3_final(ResultW, PCPlusFourD, jal, WD3_final);
   mux2 rd1_mux(RD1, ALUOutM, ForwardAD, RD1D);
   mux2 rd2_mux(RD2, ALUOutM, ForwardBD, RD2D);
-  //always @(cmd) $display("ID %h %h", PCPlusFourD, cmd);
+  
 
   initial begin
     PCSrcD <= 0;
@@ -55,13 +55,13 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
     branch <= 0;
     if (cmd === 32'bX) weAreFinished <= weAreFinished + 1;
     else weAreFinished = 0;
-    $display("UNKNOWN COMMAND %h", weAreFinished);
-
+ 
+   
     if (weAreFinished == 5) begin
        printWire = 1;
        $finish;
     end
-    //$display("ID 
+
   end
 
   always @(*)
@@ -76,19 +76,13 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
     aluSrc <= 1'bz;
     regDst <= 1'bz;
     memToReg <= 1'b0;
-    WE3 <= 1'b0;
-    
+    WE3 <= 1'b0;    
     bne <= 0;
     jal <= 0;
     jr <= 0;
     memWrite <= 0;
     PCSrcD <= 0;
-    //printWire <= 0;
 
-    //PCSrcD <= branch & (RD1D == RD2D ? 1 : 0);
-	
-    //if (cmd == 0)
-    //printWire = 1;
     
 
  case (Op)
@@ -236,8 +230,6 @@ module ID(input clk, ForwardAD, ForwardBD, FlushE, RegWriteW,
 
     default :
       begin
-
-      //$finish(2); 
       end
   endcase
   end

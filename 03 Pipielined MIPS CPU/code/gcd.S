@@ -1,6 +1,6 @@
 	#include "inputvars.def"
-	addi     $1, $0, srcA
 	addi     $2, $0, srcB
+	addi     $1, $0, srcA
 
 loop:
 	beq    $1, $0, result_b

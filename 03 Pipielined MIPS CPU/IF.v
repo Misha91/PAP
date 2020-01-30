@@ -14,24 +14,16 @@ module IF(input clk, stallF, stallD, PCSrcD,
 	
   always @(posedge clk)
   begin
-    PC = stallF ? PC : newPC;
-    
+    PC = stallF ? PC : newPC;    
     cmdD = PCSrcD ? 0 : (stallD ? cmdD : cmd); 
     PCPlusFourD = PCSrcD ? 0 : (stallD ? PCPlusFourD : PCplusFour); 
-    //PCplusFour = PC + 4;
-    //if (cmdD == 0) $finish(0);
     $display("IM pos clk: %h %h %h %h %h %h %h", PC, stallF, stallD, PCSrcD, PCBranchD, cmdD, PCPlusFourD);
-    //$finish(0);
-
   end    
 
   always @(PC) PCplusFour <= PC + 4;
 
   imem imem_mod(PC[7:2], cmd);
   mux2 pc_upd(PCplusFour, PCBranchD, PCSrcD, newPC);
-  //PC_update my_pc_update(PCplusFour, PCBranchD, PCSrcD, newPC);
-
-  //always @(PC) $display("IM: %h %h %h %h", PC, cmdD, PCplusFour, newPC);
 
 endmodule
 
