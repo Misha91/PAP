@@ -33,7 +33,7 @@
 #include "typedefs.h"
 #include "mpi/mpi.h"
 #define NUM_THREADS 4
-#define NUM_POINTS 4000
+#define NUM_POINTS 8000
 #define POINTS_FROM_PREV 0.95 //0.95
 #define ALPHA_HIT 0.9 //0.9
 #define ALPHA_SHORT 1 //1
