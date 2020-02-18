@@ -7,10 +7,9 @@ res.txt
 "/01 Simple MIPS CPU/code/change_me"
 *.o
 *.srec
-"/02 OpenMP OpenMPI/particle_filter/build/*"
-"/02 OpenMP OpenMPI/particle_filter_init/build/*"
-"/02 OpenMP OpenMPI/particle_filter/build/"
-"/02 OpenMP OpenMPI/particle_filter_init/build/"
+
+
+
 
 
 
